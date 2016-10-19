@@ -5,10 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
-import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.dbdo.UserStatusDBDO;
-import com.GiveAPint.service.LoginUserService;
 
 /**
  * This interface will be implemented by MyBatis, we need to map every method to

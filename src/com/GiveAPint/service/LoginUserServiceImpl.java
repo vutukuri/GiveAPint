@@ -51,8 +51,8 @@ public class LoginUserServiceImpl implements LoginUserService {
 		        //update the token only if there is a entry corresponding.
 		        if( oldToken != null && ! oldToken.equals("") )
 		        {
-		        	System.out.println("Old token corresponding to the user:" +oldToken);
-		            tokenMapper.updateToken(user.getUserName(), newToken);
+		        	System.out.println("Old token corresponding to the user:" + oldToken);
+		            tokenMapper.updateToken(newToken, user.getUserName());
 		        }
 		        //insert the new token into the tokens table.
 		        else

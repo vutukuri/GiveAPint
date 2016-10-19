@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 
 /**
@@ -37,8 +38,8 @@ public class CreateObjects {
 		// TODO set the fields to a different values before triggering this
 		// method.
 		UserDTO user = new UserDTO(ProjectConstants.firstName, ProjectConstants.lastName, ProjectConstants.passcode,
-				getNewUserName(), ProjectConstants.phone, ProjectConstants.newDOB(), ProjectConstants.gender,
-				ProjectConstants.healthStatus, ProjectConstants.newNextAvailableDate(), ProjectConstants.lastLocation(),
+				getNewUserName(), ProjectConstants.phone, newDOB(), ProjectConstants.gender,
+				ProjectConstants.healthStatus, newNextAvailableDate(), lastLocation(),
 				ProjectConstants.bloodGroup);
 		return user;
 	}
@@ -97,6 +98,12 @@ public class CreateObjects {
 		location.setY(ProjectConstants.yPoint);
 		location.setSrid(4326);
 		return location;
+	}
+	
+	public LocationDTO createUpdateLocation(){
+		LocationDTO newLocation = new LocationDTO(ProjectConstants.sampleUserId, ProjectConstants.xPoint, ProjectConstants.yPoint,
+													null, ProjectConstants.token);
+		return newLocation;
 	}
 
 }

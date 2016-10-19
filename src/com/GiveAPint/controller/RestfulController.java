@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
+import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
@@ -16,6 +17,7 @@ import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.service.UserLocationFetchService;
+import com.GiveAPint.service.UserLocationUpdateService;
 import com.GiveAPint.testdata.CreateObjects;
 
 /**
@@ -39,6 +41,8 @@ public class RestfulController {
 	private LoginUserService loginService;
 	@Autowired
 	private UserLocationFetchService locationService;
+	@Autowired
+	private UserLocationUpdateService locationUpdateService;
 
 	/**
 	 * Register an user.
@@ -96,13 +100,27 @@ public class RestfulController {
 			System.out.println("Prints all the locations from the database now. (Lat, Long)");
 			for ( LocationDBDO location : locations ){
 				
-				System.out.println("UserID:" + location.getUserid() + " BloodGroup:" + location.getBloodGroup() + " Lat:" + location.getLatCoord() + " Long:"
+				System.out.println("UserID:" + location.getUserid() + " Lat:" + location.getLatCoord() + " Long:"
 											+ location.getLongCoord() + "\n");
 				
 			}
 		}
 		return new ModelAndView("getAllLocations");
 		
+	}
+	
+	@RequestMapping(value = "/updateLocation")
+	public ModelAndView updateLocation(){
+		
+		LocationDTO newLocation = createSampleObjects.createUpdateLocation();
+		newLocation = locationUpdateService.locationUpdate(newLocation);
+		if( newLocation.getError() == "" || newLocation.getError() == null ){
+			System.out.println("Location Updated!  " + newLocation.getUserid() +" "+newLocation.getLatCoord() + " " + newLocation.getLongCoord());
+		}
+		else{
+			System.out.println("Location Updation Error" + newLocation.getError());
+		}
+		return new ModelAndView("updateLocation");
 	}
 
 }

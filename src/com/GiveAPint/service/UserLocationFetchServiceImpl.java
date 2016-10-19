@@ -1,5 +1,6 @@
 package com.GiveAPint.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,14 @@ public class UserLocationFetchServiceImpl implements UserLocationFetchService{
 	 */
 	@Override
 	public List<LocationDBDO> getAllLocations() {
+		List<LocationDBDO> returnLocations = new ArrayList<>();
 		// TODO Auto-generated method stub
-		return locationMapper.getAllLocations();
+		try{
+			returnLocations = locationMapper.getAllLocations();
+		}catch( Exception e ){
+			System.out.println(e.getCause());
+		}
+		return returnLocations;
 	}
 
 }

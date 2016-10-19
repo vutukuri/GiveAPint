@@ -10,12 +10,6 @@ import org.springframework.stereotype.Component;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
-import java.text.ParseException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import com.GiveAPint.constants.ProjectConstants;
-import com.GiveAPint.dto.UserDTO;
-import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.dto.LoginUserDTO;
 
 /**
@@ -43,7 +37,7 @@ public class CreateObjects {
 		// TODO set the fields to a different values before triggering this
 		// method.
 		UserDTO user = new UserDTO(ProjectConstants.firstName, ProjectConstants.lastName, ProjectConstants.passcode,
-				ProjectConstants.userName, ProjectConstants.phone, ProjectConstants.newDOB(), ProjectConstants.gender,
+				getNewUserName(), ProjectConstants.phone, ProjectConstants.newDOB(), ProjectConstants.gender,
 				ProjectConstants.healthStatus, ProjectConstants.newNextAvailableDate(), ProjectConstants.lastLocation(),
 				ProjectConstants.bloodGroup);
 		return user;

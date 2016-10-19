@@ -10,10 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.UserDTO;
+import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.service.UserLocationFetchService;
 import com.GiveAPint.testdata.CreateObjects;
 
 /**
@@ -35,6 +37,8 @@ public class RestfulController {
 	private RegisterUserService registerService;	
 	@Autowired
 	private LoginUserService loginService;
+	@Autowired
+	private UserLocationFetchService locationService;
 
 	/**
 	 * Register an user.
@@ -82,6 +86,23 @@ public class RestfulController {
 					+ " " + user.getUserName() + " " + user.getPasscode());
 		}
 		return new ModelAndView("getAllUsers");
+	}
+	
+	@RequestMapping(value = "/getAllLocations")
+	public ModelAndView getAllLocations(){
+		
+		List<LocationDBDO> locations = locationService.getAllLocations();
+		if( locations != null ){
+			System.out.println("Prints all the locations from the database now. (Lat, Long)");
+			for ( LocationDBDO location : locations ){
+				
+				System.out.println("UserID:" + location.getUserid() + " BloodGroup:" + location.getBloodGroup() + " Lat:" + location.getLatCoord() + " Long:"
+											+ location.getLongCoord() + "\n");
+				
+			}
+		}
+		return new ModelAndView("getAllLocations");
+		
 	}
 
 }

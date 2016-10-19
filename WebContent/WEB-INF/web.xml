@@ -16,5 +16,6 @@
     <url-pattern>/loginUser</url-pattern>
     <url-pattern>/registerUser</url-pattern>
     <url-pattern>/getAllUsers</url-pattern>
+    <url-pattern>/getAllLocations</url-pattern>
   </servlet-mapping>
 </web-app>

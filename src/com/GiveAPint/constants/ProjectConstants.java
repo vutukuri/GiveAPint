@@ -16,9 +16,9 @@ public class ProjectConstants {
 	public static final String lastName = "apache";
 	public static final double xPoint = 34.032384;
 	public static final double yPoint = -118.285385;
-	public static final String userName = "sample5@usc.edu";
+	public static final String userName = "hellosh@usc.edu";
 	public static final String gender = "Male";
-	public static final String passcode = "passwrd";
+	public static final String passcode = "abcd";
 	public static final String phone = "+1-213-298-0474";
 	public static final String healthStatus = "Good";
 	public static final String bloodGroup = "O+";

@@ -33,7 +33,7 @@ public interface UserMapper {
 	 * @param newUserStatus with all additional parameters.
 	 * @return number of rows affected.
 	 */
-	@Insert("INSERT INTO \"userstatus\" (\"userid\", \"healthstatus\", \"nextavailabledate\", \"lastlocation\", \"bloodgroup\") VALUES (#{userId}, #{healthStatus}, #{nextAvailableDate}, ST_SetSRID(ST_MakePoint(34.032384, -118.285385), 4326), #{bloodGroup})")
+	@Insert("INSERT INTO \"userstatus\" (\"userid\", \"healthstatus\", \"nextavailabledate\", \"lastlocation\", \"bloodgroup\") VALUES (#{userId}, #{healthStatus}, #{nextAvailableDate}, ST_SetSRID(ST_MakePoint(-118.285385,34.032384), 4326), #{bloodGroup})")
 	public int registerUserStatus(UserStatusDBDO newUserStatus);  
 	
 	@Select("SELECT max(\"userid\") from \"loginusers\"")

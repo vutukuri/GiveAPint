@@ -1,0 +1,61 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<context:component-scan base-package="com.GiveAPint.controller" />
+	<context:component-scan base-package="com.GiveAPint.dto" />
+	<context:component-scan base-package="com.GiveAPint.util" />
+	<context:component-scan base-package="com.GiveAPint.service" />
+	<context:component-scan base-package="com.GiveAPint.persistence.dbdo" />
+	<context:component-scan base-package="com.GiveAPint.persistence.mappers" />
+	<context:component-scan base-package="com.GiveAPint.constants" />
+	<context:component-scan base-package="com.GiveAPint.testdata" />
+
+	<context:property-placeholder
+		location="/WEB-INF/jdbc.properties" />
+	<!-- Enable annotation style of managing transactions , remember to add 
+		it in future -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${app.jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${app.jdbc.url}" />
+		<property name="user" value="${app.jdbc.username}" />
+		<property name="password" value="${app.jdbc.password}" />
+	</bean>
+
+	<!-- Declare a transaction manager -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- define the SqlSessionFactory, notice that configLocation is not needed 
+		when you use MapperFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- Set up this configuration file if you need mappers.xml files, other 
+			than the mapper interfaces that you provide -->
+		<!-- <property name="configLocation" value="WEB-INF/mybatis/mybatis-config.xml" 
+			/> -->
+	</bean>
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.GiveAPint.persistence"/>
+	</bean>
+</beans>

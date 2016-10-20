@@ -1,34 +1,26 @@
 package com.GiveAPint.persistence.dbdo;
 
+import com.GiveAPint.dto.LocationDTO;
+
 public class LocationDBDO {
-	
-	private double latCoord;
-	private double longCoord;
-	private String bloodGroup;
+
 	private Integer userid;
+	private Double latCoord;
+	private Double longCoord;
 	
-	public double getLatCoord() {
-		return this.latCoord;
+	public LocationDBDO()
+	{
+		
 	}
-	
-	public void setLatCoord(double latCoord) {
+	public LocationDBDO(Integer userid, double latCoord, double longCoord){
+		this.userid = userid;
 		this.latCoord = latCoord;
-	}
-	
-	public double getLongCoord() {
-		return this.longCoord;
-	}
-	
-	public void setLongCoord(double longCoord) {
 		this.longCoord = longCoord;
 	}
-
-	public String getBloodGroup() {
-		return this.bloodGroup;
-	}
-
-	public void setBloodGroup(String bloodGroup) {
-		this.bloodGroup = bloodGroup;
+	public LocationDBDO(LocationDTO location) {
+		this.userid = location.getUserid();
+		this.latCoord = location.getLatCoord();
+		this.longCoord = location.getLongCoord();
 	}
 
 	public Integer getUserid() {
@@ -38,4 +30,21 @@ public class LocationDBDO {
 	public void setUserid(Integer userid) {
 		this.userid = userid;
 	}
+
+	public double getLatCoord() {
+		return this.latCoord;
+	}
+
+	public void setLatCoord(double latCoord) {
+		this.latCoord = latCoord;
+	}
+
+	public double getLongCoord() {
+		return this.longCoord;
+	}
+
+	public void setLongCoord(double longCoord) {
+		this.longCoord = longCoord;
+	}
+
 }

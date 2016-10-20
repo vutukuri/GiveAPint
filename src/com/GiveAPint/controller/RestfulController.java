@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
+import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
@@ -18,6 +19,7 @@ import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.service.UpdateStatusService;
 import com.GiveAPint.service.UserLocationFetchService;
+import com.GiveAPint.service.UserLocationUpdateService;
 import com.GiveAPint.testdata.CreateObjects;
 
 /**
@@ -42,7 +44,11 @@ public class RestfulController {
 	@Autowired
 	private UserLocationFetchService locationService;
 	@Autowired
+<<<<<<< HEAD
 	private UpdateStatusService updateService;
+=======
+	private UserLocationUpdateService locationUpdateService;
+>>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea
 
 	/**
 	 * Register an user.
@@ -100,7 +106,7 @@ public class RestfulController {
 			System.out.println("Prints all the locations from the database now. (Lat, Long)");
 			for ( LocationDBDO location : locations ){
 				
-				System.out.println("UserID:" + location.getUserid() + " BloodGroup:" + location.getBloodGroup() + " Lat:" + location.getLatCoord() + " Long:"
+				System.out.println("UserID:" + location.getUserid() + " Lat:" + location.getLatCoord() + " Long:"
 											+ location.getLongCoord() + "\n");
 				
 			}
@@ -109,12 +115,27 @@ public class RestfulController {
 		
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value = "/updateStatus")
 	public ModelAndView updateStatus(){
 		UpdateUserStatusDTO user = createSampleObjects.updateStatus();
 		UpdateUserStatusDTO update = updateService.UpdateUserStatus(user);
 		System.out.println("Login user status(null if no error):" + update.getError());
 		return new ModelAndView("updateStatus");
+=======
+	@RequestMapping(value = "/updateLocation")
+	public ModelAndView updateLocation(){
+		
+		LocationDTO newLocation = createSampleObjects.createUpdateLocation();
+		newLocation = locationUpdateService.locationUpdate(newLocation);
+		if( newLocation.getError() == "" || newLocation.getError() == null ){
+			System.out.println("Location Updated!  " + newLocation.getUserid() +" "+newLocation.getLatCoord() + " " + newLocation.getLongCoord());
+		}
+		else{
+			System.out.println("Location Updation Error" + newLocation.getError());
+		}
+		return new ModelAndView("updateLocation");
+>>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea
 	}
 
 }

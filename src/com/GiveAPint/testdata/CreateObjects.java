@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 
@@ -116,6 +117,12 @@ public class CreateObjects {
 		location.setY(ProjectConstants.yPoint);
 		location.setSrid(4326);
 		return location;
+	}
+	
+	public LocationDTO createUpdateLocation(){
+		LocationDTO newLocation = new LocationDTO(ProjectConstants.sampleUserId, ProjectConstants.xPoint, ProjectConstants.yPoint,
+													null, ProjectConstants.token);
+		return newLocation;
 	}
 
 }

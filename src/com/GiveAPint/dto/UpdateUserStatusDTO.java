@@ -33,7 +33,7 @@ public class UpdateUserStatusDTO {
 	 * @return the userid
 	 */
 	public int getUserid() {
-		return userid;
+		return this.userid;
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class UpdateUserStatusDTO {
 	 * @return the lastDonatedDate
 	 */
 	public Date getLastDonatedDate() {
-		return lastDonatedDate;
+		return this.lastDonatedDate;
 	}
 
 	/**
@@ -61,7 +61,7 @@ public class UpdateUserStatusDTO {
 	 * @return the healthStatus
 	 */
 	public String getHealthStatus() {
-		return healthStatus;
+		return this.healthStatus;
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class UpdateUserStatusDTO {
 	 * @return the token
 	 */
 	public String getToken() {
-		return token;
+		return this.token;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class UpdateUserStatusDTO {
 	 * @return the error
 	 */
 	public String getError() {
-		return error;
+		return this.error;
 	}
 
 	/**

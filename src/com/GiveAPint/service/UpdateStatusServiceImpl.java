@@ -27,10 +27,10 @@ public class UpdateStatusServiceImpl implements UpdateStatusService {
 	private LoginUserService tokenCheck;
 
 	public UpdateUserStatusDTO UpdateUserStatus(UpdateUserStatusDTO user) {
-		String userName = userMapper.getUser(user.getUserid());
+		String userName = userMapper.getUserName(user.getUserid());
 
 		if (userName == null || userName == "") {
-			user.setError("The userid doesnot exist in the login, Please signup first");
+			user.setError("The userid does not exist in the login, Please signup first");
 			return user;
 		}
 		Boolean check = tokenCheck.validateToken(userName, user.getToken());
@@ -50,7 +50,7 @@ public class UpdateStatusServiceImpl implements UpdateStatusService {
 			user.setError("Update failed at database");
 			return user;
 		}
-		if( user.getLastDonatedDate() != null ){
+		if (user.getLastDonatedDate() != null) {
 			Integer insert;
 			try {
 				insert = userMapper.insertLastDonatedDate(user.getUserid(), user.getLastDonatedDate());

@@ -26,11 +26,8 @@ public interface UserMapper {
 	
 	@Insert("INSERT INTO \"donationhistory\" (\"userid\", \"donateddate\") VALUES (#{userid}, #{lastDonatedDate})")
 	public Integer insertLastDonatedDate( @Param("userid")int userid, @Param("lastDonatedDate") Date lastDonatedDate);
-	
-	@Select("SELECT \"username\" FROM \"loginusers\" WHERE \"userid\" = #{userid}")
-	public String getUser( @Param("userid") int userid);
 
-	@Select("SELECT \"firstname\", \"lastname\", \"userid\", \"passcode\", \"username\" FROM \"loginusers\"")
+	@Select("SELECT \"firstname\" as firstName, \"lastname\" as lastName, \"userid\" as userId, \"passcode\" as passcode, \"username\" as userName FROM \"loginusers\"")
 	public List<UserDBDO> getAllUsers();
 
 	/**

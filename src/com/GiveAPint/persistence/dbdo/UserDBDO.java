@@ -23,6 +23,10 @@ public class UserDBDO {
 	private String gender;
 	private String error;
 
+	public UserDBDO(){
+		
+	}
+		
 	/**
 	 * Sets everything except userId which is returned only after inserting the user into the database.
 	 * @param user

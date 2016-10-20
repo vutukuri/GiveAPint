@@ -86,12 +86,12 @@ public class RestfulController {
 	@RequestMapping(value = "/getAllUsers")
 	public ModelAndView getAllUsers() {
 		List<UserDBDO> users = userMapper.getAllUsers();
-		System.out.println("The number of users as if now:" + users.size());
+		System.out.println("The number of users as of now:" + users.size());
 		for (UserDBDO user : users) {
 			// Print the values corresponding to the user.
 			// TODO need to print the key value pairs.
-			System.out.println("User info:" + user.getFirstName() + " " + user.getLastName() + " " + user.getUserId()
-					+ " " + user.getUserName() + " " + user.getPasscode());
+			System.out.println("User info:  " + user.getFirstName() + "  " + user.getLastName() + "  " + user.getUserId()
+					+ "  " + user.getUserName() + "  " + user.getPasscode());
 		}
 		return new ModelAndView("getAllUsers");
 	}
@@ -117,7 +117,7 @@ public class RestfulController {
 	public ModelAndView updateStatus(){
 		UpdateUserStatusDTO user = createSampleObjects.updateStatus();
 		UpdateUserStatusDTO update = updateService.UpdateUserStatus(user);
-		System.out.println("Login user status(null if no error):" + update.getError());
+		System.out.println("Updation status(null if no error):" + update.getError());
 		return new ModelAndView("updateStatus");
 	}
 		

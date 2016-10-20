@@ -37,7 +37,7 @@ public class UserLocationUpdateServiceImpl implements UserLocationUpdateService{
 
 		try {
 			String userName = userMapper.getUserName(newLocation.getUserid());
-			if (loginService.validateToken(userName, newLocation.getToken()) == false) {
+			if ( loginService.validateToken(userName, newLocation.getToken()) == false ) {
 				newLocation.setError("Token not matched!");
 				return newLocation;
 			}

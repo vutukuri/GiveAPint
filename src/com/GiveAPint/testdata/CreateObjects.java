@@ -46,7 +46,7 @@ public class CreateObjects {
 	}
 	
 	public UpdateUserStatusDTO updateStatus(){
-		UpdateUserStatusDTO user = new UpdateUserStatusDTO( 3, newDonatedDate(), ProjectConstants.healthStatus,"7t1qev3os9do");
+		UpdateUserStatusDTO user = new UpdateUserStatusDTO( 3, newDonatedDate(), ProjectConstants.healthStatus, ProjectConstants.token );
 		return user;
 	}
 	

@@ -1,9 +1,13 @@
 package com.GiveAPint.persistence.mappers;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.dbdo.UserStatusDBDO;
@@ -16,6 +20,15 @@ import com.GiveAPint.persistence.dbdo.UserStatusDBDO;
  *
  */
 public interface UserMapper {
+	
+	@Update("UPDATE \"userstatus\" SET \"healthstatus\" = #{healthStatus} WHERE \"userid\" = #{userid}")
+	public Integer updateHealthStatus( @Param("userid")int userid, @Param("healthStatus")String healthStatus );
+	
+	@Insert("INSERT INTO \"donationhistory\" (\"userid\", \"donateddate\") VALUES (#{userid}, #{lastDonatedDate})")
+	public Integer insertLastDonatedDate( @Param("userid")int userid, @Param("lastDonatedDate") Date lastDonatedDate);
+	
+	@Select("SELECT \"username\" FROM \"loginusers\" WHERE \"userid\" = #{userid}")
+	public String getUser( @Param("userid") int userid);
 
 	@Select("SELECT \"firstname\", \"lastname\", \"userid\", \"passcode\", \"username\" FROM \"loginusers\"")
 	public List<UserDBDO> getAllUsers();
@@ -46,6 +59,6 @@ public interface UserMapper {
 	 * If insertion in userstatus table gives an error. This deletes the corresponding entry(with prevId) from the loginusers table.
 	 * @return
 	 */
-	@Select("DELETE FROM \"loginusers\" WHERE \"userid\" = #{prevId}")
+	@Delete("DELETE FROM \"loginusers\" WHERE \"userid\" = #{prevId}")
 	public Integer deleteLoginUsers(int prevId);
 }

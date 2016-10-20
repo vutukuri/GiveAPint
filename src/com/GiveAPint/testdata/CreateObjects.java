@@ -11,6 +11,7 @@ import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.UpdateUserStatusDTO;
 
 /**
  * This class is responsible to create data objects which resembles to the ones
@@ -37,9 +38,14 @@ public class CreateObjects {
 		// TODO set the fields to a different values before triggering this
 		// method.
 		UserDTO user = new UserDTO(ProjectConstants.firstName, ProjectConstants.lastName, ProjectConstants.passcode,
-				getNewUserName(), ProjectConstants.phone, ProjectConstants.newDOB(), ProjectConstants.gender,
-				ProjectConstants.healthStatus, ProjectConstants.newNextAvailableDate(), ProjectConstants.lastLocation(),
+				getNewUserName(), ProjectConstants.phone, newDOB(), ProjectConstants.gender,
+				ProjectConstants.healthStatus, newNextAvailableDate(), lastLocation(),
 				ProjectConstants.bloodGroup);
+		return user;
+	}
+	
+	public UpdateUserStatusDTO updateStatus(){
+		UpdateUserStatusDTO user = new UpdateUserStatusDTO( 3, newDonatedDate(), ProjectConstants.healthStatus,"7t1qev3os9do");
 		return user;
 	}
 	
@@ -83,6 +89,19 @@ public class CreateObjects {
 		try {
 			//text to date.
 			date = ProjectConstants.sdf.parse(ProjectConstants.nextAvailableDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
+	public static Date newDonatedDate()
+	{
+		Date date = new Date();
+		try {
+			//text to date.
+			date = ProjectConstants.sdf.parse(ProjectConstants.donatedDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

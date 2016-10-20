@@ -9,12 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.service.UpdateStatusService;
 import com.GiveAPint.service.UserLocationFetchService;
 import com.GiveAPint.testdata.CreateObjects;
 
@@ -39,6 +41,8 @@ public class RestfulController {
 	private LoginUserService loginService;
 	@Autowired
 	private UserLocationFetchService locationService;
+	@Autowired
+	private UpdateStatusService updateService;
 
 	/**
 	 * Register an user.
@@ -103,6 +107,14 @@ public class RestfulController {
 		}
 		return new ModelAndView("getAllLocations");
 		
+	}
+	
+	@RequestMapping(value = "/updateStatus")
+	public ModelAndView updateStatus(){
+		UpdateUserStatusDTO user = createSampleObjects.updateStatus();
+		UpdateUserStatusDTO update = updateService.UpdateUserStatus(user);
+		System.out.println("Login user status(null if no error):" + update.getError());
+		return new ModelAndView("updateStatus");
 	}
 
 }

@@ -17,10 +17,7 @@
     <url-pattern>/registerUser</url-pattern>
     <url-pattern>/getAllUsers</url-pattern>
     <url-pattern>/getAllLocations</url-pattern>
-<<<<<<< HEAD
     <url-pattern>/updateStatus</url-pattern>
-=======
     <url-pattern>/updateLocation</url-pattern>
->>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea
   </servlet-mapping>
 </web-app>

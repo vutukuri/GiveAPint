@@ -44,11 +44,9 @@ public class RestfulController {
 	@Autowired
 	private UserLocationFetchService locationService;
 	@Autowired
-<<<<<<< HEAD
 	private UpdateStatusService updateService;
-=======
+	@Autowired
 	private UserLocationUpdateService locationUpdateService;
->>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea
 
 	/**
 	 * Register an user.
@@ -115,14 +113,14 @@ public class RestfulController {
 		
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value = "/updateStatus")
 	public ModelAndView updateStatus(){
 		UpdateUserStatusDTO user = createSampleObjects.updateStatus();
 		UpdateUserStatusDTO update = updateService.UpdateUserStatus(user);
 		System.out.println("Login user status(null if no error):" + update.getError());
 		return new ModelAndView("updateStatus");
-=======
+	}
+		
 	@RequestMapping(value = "/updateLocation")
 	public ModelAndView updateLocation(){
 		
@@ -135,7 +133,6 @@ public class RestfulController {
 			System.out.println("Location Updation Error" + newLocation.getError());
 		}
 		return new ModelAndView("updateLocation");
->>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea
 	}
 
 }

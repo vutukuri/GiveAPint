@@ -1,12 +1,14 @@
-<<<<<<< HEAD
 com\GiveAPint\service\RegisterUserService.class
 com\GiveAPint\service\UpdateStatusServiceImpl.class
 com\GiveAPint\dto\UserDTO.class
 com\GiveAPint\persistence\dbdo\UserStatusDBDO.class
+com\GiveAPint\service\UserLocationUpdateService.class
 com\GiveAPint\service\LoginUserService.class
 com\GiveAPint\constants\ProjectConstants.class
 com\GiveAPint\controller\RestfulController.class
 com\GiveAPint\service\LoginUserServiceImpl.class
+com\GiveAPint\dto\LocationDTO.class
+com\GiveAPint\service\UserLocationUpdateServiceImpl.class
 com\GiveAPint\service\UpdateStatusService.class
 com\GiveAPint\persistence\mappers\TokenMapper.class
 com\GiveAPint\persistence\dbdo\RequestDBDO.class
@@ -24,30 +26,3 @@ com\GiveAPint\util\TokenRandomGenerator.class
 com\GiveAPint\persistence\dbdo\UserDBDO.class
 com\GiveAPint\service\RegisterUserServiceImpl.class
 com\GiveAPint\util\InputValidation.class
-=======
-com/GiveAPint/service/RegisterUserService.class
-com/GiveAPint/service/LoginUserService.class
-com/GiveAPint/dto/LoginUserDTO.class
-com/GiveAPint/persistence/dbdo/AcceptorDBDO.class
-com/GiveAPint/service/UserLocationFetchServiceImpl.class
-com/GiveAPint/persistence/dbdo/RequestDBDO.class
-com/GiveAPint/persistence/mappers/LocationMapper.class
-com/GiveAPint/persistence/dbdo/LocationDBDO.class
-com/GiveAPint/persistence/dbdo/TokenDBDO.class
-com/GiveAPint/service/RegisterUserServiceImpl.class
-com/GiveAPint/dto/LocationDTO.class
-com/GiveAPint/persistence/mappers/TokenMapper.class
-com/GiveAPint/service/UserLocationUpdateService.class
-com/GiveAPint/service/UserLocationFetchService.class
-com/GiveAPint/util/TokenRandomGenerator.class
-com/GiveAPint/service/LoginUserServiceImpl.class
-com/GiveAPint/util/InputValidation.class
-com/GiveAPint/testdata/CreateObjects.class
-com/GiveAPint/persistence/dbdo/UserDBDO.class
-com/GiveAPint/controller/RestfulController.class
-com/GiveAPint/persistence/mappers/UserMapper.class
-com/GiveAPint/constants/ProjectConstants.class
-com/GiveAPint/dto/UserDTO.class
-com/GiveAPint/persistence/dbdo/UserStatusDBDO.class
-com/GiveAPint/service/UserLocationUpdateServiceImpl.class
->>>>>>> 02ce4dd3b5263647e86961792a3b81412062e1ea

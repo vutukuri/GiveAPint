@@ -12,10 +12,10 @@ public class ProjectConstants {
 	public static final String lastName = "apache";
 	public static final double xPoint = 35.032384;
 	public static final double yPoint = -118.285385;
-	public static final String userName = "hellosh@usc.edu";
+	public static final String userName = "yerra@usc.edu";
 	public static final String gender = "Male";
-	public static final String passcode = "abcd";
-	public static final String phone = "+1-213-298-0474";
+	public static final String passcode = "abhipardhu";
+	public static final String phone = "213-298-0474";
 	public static final String healthStatus = "Good";
 	public static final String bloodGroup = "O+";
 	// Objects and fields related to date.
@@ -27,7 +27,7 @@ public class ProjectConstants {
 	// pattern matching regex validation
 	public static final String emailPattern = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-	public static final String token = "32b3piotr7k3j";
-	public static final Integer sampleUserId = 3;
+	public static final String token = "5po6gr6lorf48";
+	public static final Integer sampleUserId = 1;
 
 }

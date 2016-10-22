@@ -14,6 +14,7 @@ import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
+import com.GiveAPint.persistence.dbdo.ResultDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
@@ -40,7 +41,7 @@ public class RestfulController {
 	@Autowired
 	private CreateObjects createSampleObjects;
 	@Autowired
-	private RegisterUserService registerService;	
+	private RegisterUserService registerService;
 	@Autowired
 	private LoginUserService loginService;
 	@Autowired
@@ -52,7 +53,6 @@ public class RestfulController {
 	@Autowired
 	private RequestForBloodService requestBloodService;
 
-
 	/**
 	 * Register an user.
 	 * 
@@ -62,7 +62,7 @@ public class RestfulController {
 	public ModelAndView registerUser() {
 		UserDTO user = createSampleObjects.createUser();
 		user = registerService.insertUser(user);
-		System.out.println("The userId of newly created user is:" +user.getUserID());
+		System.out.println("The userId of newly created user is:" + user.getUserID());
 		return new ModelAndView("register");
 	}
 
@@ -75,16 +75,16 @@ public class RestfulController {
 	public ModelAndView loginUser() {
 		LoginUserDTO user = createSampleObjects.createLoginUser();
 		user = loginService.validateUser(user);
-		System.out.println("Login user status(null if no error):" +user.getError());
-		System.out.println("Token that is generated:" +user.getToken());
+		System.out.println("Login user status(null if no error):" + user.getError());
+		System.out.println("Token that is generated:" + user.getToken());
 		return new ModelAndView("login");
 	}
-	
+
 	@RequestMapping(value = "/validateTokenOfUser")
 	public ModelAndView validateToken() {
-		
+
 		boolean isValidToken = loginService.validateToken(ProjectConstants.userName, "dd7c16992dhfa");
-		System.out.println("Is token a  valid one:" +isValidToken);
+		System.out.println("Is token a  valid one:" + isValidToken);
 		return new ModelAndView("login");
 	}
 
@@ -95,62 +95,70 @@ public class RestfulController {
 		for (UserDBDO user : users) {
 			// Print the values corresponding to the user.
 			// TODO need to print the key value pairs.
-			System.out.println("User info:  " + user.getFirstName() + "  " + user.getLastName() + "  " + user.getUserId()
-					+ "  " + user.getUserName() + "  " + user.getPasscode());
+			System.out.println("User info:  " + user.getFirstName() + "  " + user.getLastName() + "  "
+					+ user.getUserId() + "  " + user.getUserName() + "  " + user.getPasscode());
 		}
 		return new ModelAndView("getAllUsers");
 	}
-	
+
 	@RequestMapping(value = "/getAllLocations")
-	public ModelAndView getAllLocations(){
-		
+	public ModelAndView getAllLocations() {
+
 		List<LocationDBDO> locations = locationService.getAllLocations();
-		if( locations != null ){
+		if (locations != null) {
 			System.out.println("Prints all the locations from the database now. (Lat, Long)");
-			for ( LocationDBDO location : locations ){
-				
+			for (LocationDBDO location : locations) {
+
 				System.out.println("UserID:" + location.getUserid() + " Lat:" + location.getLatCoord() + " Long:"
-											+ location.getLongCoord() + "\n");
-				
+						+ location.getLongCoord() + "\n");
+
 			}
 		}
 		return new ModelAndView("getAllLocations");
-		
+
 	}
-	
+
 	@RequestMapping(value = "/updateStatus")
-	public ModelAndView updateStatus(){
+	public ModelAndView updateStatus() {
 		UpdateUserStatusDTO user = createSampleObjects.updateStatus();
 		UpdateUserStatusDTO update = updateService.UpdateUserStatus(user);
 		System.out.println("Updation status(null if no error):" + update.getError());
 		return new ModelAndView("updateStatus");
 	}
-		
+
 	@RequestMapping(value = "/updateLocation")
-	public ModelAndView updateLocation(){
-		
+	public ModelAndView updateLocation() {
+
 		LocationDTO newLocation = createSampleObjects.createUpdateLocation();
 		newLocation = locationUpdateService.locationUpdate(newLocation);
-		if( newLocation.getError() == "" || newLocation.getError() == null ){
-			System.out.println("Location Updated!  " + newLocation.getUserid() +" "+newLocation.getLatCoord() + " " + newLocation.getLongCoord());
-		}
-		else{
+		if (newLocation.getError() == "" || newLocation.getError() == null) {
+			System.out.println("Location Updated!  " + newLocation.getUserid() + " " + newLocation.getLatCoord() + " "
+					+ newLocation.getLongCoord());
+		} else {
 			System.out.println("Location Updation Error" + newLocation.getError());
 		}
 		return new ModelAndView("updateLocation");
 	}
-	
+
 	@RequestMapping(value = "/requestBlood")
-	public ModelAndView requestForDonation()
-	{
+	public ModelAndView requestForDonation() {
 		RequestBloodDTO request = createSampleObjects.createRequest();
-		if( request.getQueryType().equals("RangeQuery") )
-		{
-			//TODO set up a service class to perform the range query.
-		}
-		else if( request.getQueryType().equals("KnnQuery"))
-		{
-			//TODO set up a service class to implement Knn query.
+		if (request.getQueryType().equals("RangeQuery")) {
+			// TODO set up a service class to perform the range query.
+			RequestBloodDTO resultRequest = requestBloodService.rangeQuery(request);
+			if (resultRequest.getError() == "" || resultRequest.getError() == null) {
+				System.out.println("Range Query results for the request Id: " + resultRequest.getRequestId()
+						+ "\n, for the bloodGroup: " + resultRequest.getBloodGroup() + "\n, and for the userId: "
+						+ resultRequest.getUserId() + " are");
+				for (ResultDBDO result : resultRequest.getResultList()) {
+					System.out.println("UserId: " + result.getUserId() + ", BloodGroup: " + result.getBloodGroup());
+				}
+			} else {
+				System.out.println("Performing range query resulted in an error:: please check for the details::   "
+						+ resultRequest.getError());
+			}
+		} else if (request.getQueryType().equals("KnnQuery")) {
+			// TODO set up a service class to implement Knn query.
 		}
 		return new ModelAndView("requestBlood");
 	}

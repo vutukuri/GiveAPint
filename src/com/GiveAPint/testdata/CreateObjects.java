@@ -2,6 +2,7 @@ package com.GiveAPint.testdata;
 
 import org.postgis.Point;
 import java.util.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,7 @@ public class CreateObjects {
 		LoginUserDTO loginUser = new LoginUserDTO(ProjectConstants.userName, ProjectConstants.passcode);
 		return loginUser;
 	}
+	
 	public String getNewUserName(){
 		String userNameBase = "sample";
 		String userNameExt = "@usc.edu";
@@ -128,8 +130,10 @@ public class CreateObjects {
 	
 	public RequestBloodDTO createRequest()
 	{
+		Date date = new Date();
+		RequestBloodDTO newRequest = new RequestBloodDTO(ProjectConstants.sampleUserId, "Pending", new Timestamp(date.getTime()) , 5, "B+", "RangeQuery", 5000, ProjectConstants.token);
 		//TODO need to implement a method which returns a dummy request matching the DTO patterns.
-		return new RequestBloodDTO();
+		return newRequest;
 	}
 
 }

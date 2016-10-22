@@ -20,12 +20,12 @@ import com.GiveAPint.persistence.dbdo.UserStatusDBDO;
  *
  */
 public interface UserMapper {
-	
+
 	@Update("UPDATE \"userstatus\" SET \"healthstatus\" = #{healthStatus} WHERE \"userid\" = #{userid}")
-	public Integer updateHealthStatus( @Param("userid")int userid, @Param("healthStatus")String healthStatus );
-	
+	public Integer updateHealthStatus(@Param("userid") int userid, @Param("healthStatus") String healthStatus);
+
 	@Insert("INSERT INTO \"donationhistory\" (\"userid\", \"donateddate\") VALUES (#{userid}, #{lastDonatedDate})")
-	public Integer insertLastDonatedDate( @Param("userid")int userid, @Param("lastDonatedDate") Date lastDonatedDate);
+	public Integer insertLastDonatedDate(@Param("userid") int userid, @Param("lastDonatedDate") Date lastDonatedDate);
 
 	@Select("SELECT \"firstname\" as firstName, \"lastname\" as lastName, \"userid\" as userId, \"passcode\" as passcode, \"username\" as userName FROM \"loginusers\"")
 	public List<UserDBDO> getAllUsers();
@@ -66,7 +66,7 @@ public interface UserMapper {
 	 */
 	@Delete("DELETE FROM \"loginusers\" WHERE \"userid\" = #{prevId}")
 	public Integer deleteLoginUsers(int prevId);
-	
+
 	/**
 	 * Get userName corresponding to the given userId
 	 */

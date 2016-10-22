@@ -12,6 +12,7 @@ import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 
 /**
@@ -123,6 +124,12 @@ public class CreateObjects {
 		LocationDTO newLocation = new LocationDTO(ProjectConstants.sampleUserId, ProjectConstants.xPoint, ProjectConstants.yPoint,
 													null, ProjectConstants.token);
 		return newLocation;
+	}
+	
+	public RequestBloodDTO createRequest()
+	{
+		//TODO need to implement a method which returns a dummy request matching the DTO patterns.
+		return new RequestBloodDTO();
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
@@ -17,6 +18,7 @@ import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.service.RequestForBloodService;
 import com.GiveAPint.service.UpdateStatusService;
 import com.GiveAPint.service.UserLocationFetchService;
 import com.GiveAPint.service.UserLocationUpdateService;
@@ -47,6 +49,9 @@ public class RestfulController {
 	private UpdateStatusService updateService;
 	@Autowired
 	private UserLocationUpdateService locationUpdateService;
+	@Autowired
+	private RequestForBloodService requestBloodService;
+
 
 	/**
 	 * Register an user.
@@ -133,6 +138,21 @@ public class RestfulController {
 			System.out.println("Location Updation Error" + newLocation.getError());
 		}
 		return new ModelAndView("updateLocation");
+	}
+	
+	@RequestMapping(value = "/requestBlood")
+	public ModelAndView requestForDonation()
+	{
+		RequestBloodDTO request = createSampleObjects.createRequest();
+		if( request.getQueryType().equals("RangeQuery") )
+		{
+			//TODO set up a service class to perform the range query.
+		}
+		else if( request.getQueryType().equals("KnnQuery"))
+		{
+			//TODO set up a service class to implement Knn query.
+		}
+		return new ModelAndView("requestBlood");
 	}
 
 }

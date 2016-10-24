@@ -1,1 +1,1 @@
-This repository should consists of the files for loginuser, registeruser, getAllLocations, updateStatus, updateLocation, and rangeQuery.
+This repository should consist of the files to successfully execute the following tasks: loginuser, registeruser, getAllLocations, updateStatus, updateLocation, and rangeQuery.

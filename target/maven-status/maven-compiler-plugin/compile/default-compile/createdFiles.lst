@@ -1,6 +1,10 @@
 com/GiveAPint/service/RegisterUserService.class
 com/GiveAPint/service/LoginUserService.class
+<<<<<<< Updated upstream
 com/GiveAPint/persistence/mappers/GeoQueryMapper.class
+=======
+com/GiveAPint/persistence/mappers/RequestMapper.class
+>>>>>>> Stashed changes
 com/GiveAPint/dto/LoginUserDTO.class
 com/GiveAPint/persistence/dbdo/AcceptorDBDO.class
 com/GiveAPint/service/UserLocationFetchServiceImpl.class
@@ -16,7 +20,11 @@ com/GiveAPint/service/UpdateStatusService.class
 com/GiveAPint/persistence/mappers/TokenMapper.class
 com/GiveAPint/service/UserLocationUpdateService.class
 com/GiveAPint/service/UpdateStatusServiceImpl.class
+<<<<<<< Updated upstream
 com/GiveAPint/service/UserLocationFetchService.class
+=======
+com/GiveAPint/persistence/dbdo/QueryResultDBDO.class
+>>>>>>> Stashed changes
 com/GiveAPint/service/RequestForBloodService.class
 com/GiveAPint/util/TokenRandomGenerator.class
 com/GiveAPint/service/LoginUserServiceImpl.class

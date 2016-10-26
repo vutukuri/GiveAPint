@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/service/LoginUserServiceImpl.java
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/service/RegisterUserService.java
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/service/UserLocationFetchService.java
@@ -31,3 +32,38 @@
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/LocationDBDO.java
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/service/UserLocationUpdateService.java
 /home/abhi/workspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/TokenDBDO.java
+=======
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RegisterUserServiceImpl.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UpdateUserStatusDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserStatusDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UpdateStatusServiceImpl.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/LoginUserService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/TokenDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/testdata/CreateObjects.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/RequestMapper.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/util/TokenRandomGenerator.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/LocationDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/RequestDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RequestForBloodService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/controller/RestfulController.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UpdateStatusService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/util/InputValidation.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationUpdateServiceImpl.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/TokenMapper.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/LocationMapper.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationFetchServiceImpl.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationUpdateService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/AcceptorDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UserDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/RequestBloodDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RequestForBloodServiceImpl.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/QueryResultDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/LocationDBDO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/UserMapper.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RegisterUserService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationFetchService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/LoginUserDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/constants/ProjectConstants.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/LoginUserServiceImpl.java
+>>>>>>> Stashed changes

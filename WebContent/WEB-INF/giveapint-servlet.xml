@@ -51,8 +51,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- Set up this configuration file if you need mappers.xml files, other 
 			than the mapper interfaces that you provide -->
-		<!-- <property name="configLocation" value="WEB-INF/mybatis/mybatis-config.xml" 
-			/> -->
+		<!--  <property name="configLocation" value="resources/mybatis-config.xml" /> -->
 	</bean>
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

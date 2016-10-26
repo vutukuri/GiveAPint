@@ -133,7 +133,21 @@ public class CreateObjects {
 		Date date = new Date();
 		RequestBloodDTO newRequest = new RequestBloodDTO(ProjectConstants.sampleUserId, "Pending", new Timestamp(date.getTime()) , 5, "B+", "RangeQuery", 5000, ProjectConstants.token);
 		//TODO need to implement a method which returns a dummy request matching the DTO patterns.
+<<<<<<< Updated upstream
 		return newRequest;
+=======
+		RequestBloodDTO request = new RequestBloodDTO();
+		request.setUserId(5);
+		request.setBloodGroup(ProjectConstants.bloodGroup);
+		request.setEmergencyLevel(5);
+		request.setkVal(3);
+		request.setQueryType("KnnQuery");
+		request.setStatus(ProjectConstants.status);
+		request.setToken(ProjectConstants.dummyToken);
+		request.setTimeStamp(new Timestamp(request.getCurrentDate().getTime()));
+		return request;
+		//Need to set timestamp.
+>>>>>>> Stashed changes
 	}
 
 }

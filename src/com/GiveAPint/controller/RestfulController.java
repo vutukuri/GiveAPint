@@ -143,6 +143,7 @@ public class RestfulController {
 	@RequestMapping(value = "/requestBlood")
 	public ModelAndView requestForDonation() {
 		RequestBloodDTO request = createSampleObjects.createRequest();
+<<<<<<< Updated upstream
 		if (request.getQueryType().equals("RangeQuery")) {
 			// TODO set up a service class to perform the range query.
 			RequestBloodDTO resultRequest = requestBloodService.rangeQuery(request);
@@ -159,6 +160,18 @@ public class RestfulController {
 			}
 		} else if (request.getQueryType().equals("KnnQuery")) {
 			// TODO set up a service class to implement Knn query.
+=======
+		if( request.getQueryType().equals("RangeQuery") )
+		{
+			//TODO set up a service class to perform the range query.
+		}
+		else if( request.getQueryType().equals("KnnQuery"))
+		{
+			//TODO set up a service class to implement Knn query.
+			request = requestBloodService.knnQuery(request);
+			System.out.println("Succesfully executed knn");
+			//TODO Print the result set here
+>>>>>>> Stashed changes
 		}
 		return new ModelAndView("requestBlood");
 	}

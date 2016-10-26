@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.GiveAPint.persistence.mappers.RequestMapper">
+
+	<resultMap type="com.GiveAPint.persistence.dbdo.QueryResultDBDO"
+		id="GeoQueryResultMap">
+		<result column="userid" property="resultantUserId" />
+		<result column="bloodgroup" property="bloodGroup" />
+	</resultMap>
+
+	<select id="getKNearestNeighbors" parameterType="map"
+		resultMap="GeoQueryResultMap">
+		SELECT "userid", 
+		extract(epoch from nextavailabledate) as times,
+		"bloodgroup", 
+		ST_Distance("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326)) as distance 
+		from userstatus
+		WHERE bloodgroup IN   
+		<foreach item="item" index="index" collection="bloodDonationTypes"
+      	open="(" separator="," close=")">
+        #{item}
+  		</foreach> 
+		AND extract(epoch from nextavailabledate) &#60; extract(epoch from #{currentDate} :: Date) AND not "userid" = #{userId}
+		ORDER BY lastlocation &#60;-> st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326)
+		LIMIT #{kVal};
+	</select>
+</mapper>

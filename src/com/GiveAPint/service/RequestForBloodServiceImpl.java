@@ -1,38 +1,23 @@
 package com.GiveAPint.service;
 
-<<<<<<< Updated upstream
 import java.util.List;
-=======
+
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
->>>>>>> Stashed changes
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.GiveAPint.dto.RequestBloodDTO;
-<<<<<<< Updated upstream
+
 import com.GiveAPint.persistence.dbdo.ResultDBDO;
-import com.GiveAPint.persistence.mappers.GeoQueryMapper;
 import com.GiveAPint.persistence.mappers.UserMapper;
-
-@Service("RequestForBloodService")
-public class RequestForBloodServiceImpl implements RequestForBloodService {
-
-	@Autowired
-	private UserMapper userMapper;
-	@Autowired
-	private LoginUserService loginService;
-	@Autowired
-	private GeoQueryMapper queryMapper;
-=======
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 import com.GiveAPint.persistence.mappers.LocationMapper;
 import com.GiveAPint.persistence.mappers.RequestMapper;
-import com.GiveAPint.persistence.mappers.UserMapper;
 
 @Service("RequestForBloodService")
 public class RequestForBloodServiceImpl implements RequestForBloodService{
@@ -69,7 +54,7 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 		bloodMappings.put("O-", Arrays.asList("O-"));
 		return bloodMappings;
 	}
->>>>>>> Stashed changes
+
 
 	private List<String> getDonorsForBloodType(String bloodType)
 	{
@@ -130,7 +115,7 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 		// TODO Auto-generated method stub
 		try {
 			String userName = userMapper.getUserName(request.getUserId());
-			if (loginService.validateToken(userName, request.getToken()) == false) {
+			if (loginUserService.validateToken(userName, request.getToken()) == false) {
 				request.setError("Token not matched!");
 				return request;
 			}
@@ -140,14 +125,14 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 		}
 
 		try {
-			queryMapper.insertRequest(request);
+			requestMapper.insertRequest(request);
 		} catch (Exception e) {
 			request.setError(e.getCause().toString());
 			return request;
 		}
 		Integer requestId;
 		try {
-			requestId = queryMapper.getRequestId(request.getUserId());
+			requestId = requestMapper.getRequestId(request.getUserId());
 			request.setRequestId(requestId);
 		} catch (Exception e) {
 			request.setError(e.getCause().toString());
@@ -155,8 +140,8 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 		}
 		
 		try {
-			List<ResultDBDO> resultList = queryMapper.rangeQuery(request);
-			request.setResultList(resultList);
+			List<QueryResultDBDO> resultList = requestMapper.rangeQuery(request);
+			request.setQueryResult(resultList);
 		} catch (Exception e) {
 			request.setError(e.getCause().toString());
 		}

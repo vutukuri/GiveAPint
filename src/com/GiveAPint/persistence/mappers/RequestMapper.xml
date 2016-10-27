@@ -27,4 +27,13 @@
 		ORDER BY lastlocation &#60;-> st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326)
 		LIMIT #{kVal};
 	</select>
+	
+	<select id="rangeQuery" parameterType="map" resultMap="GeoQueryResultMap">
+	SELECT 
+	"userid", 
+	"bloodgroup"
+	FROM "userstatus", (SELECT "lastlocation" as "requestloc" FROM "userstatus" WHERE "userid" = #{userId}) as "request"
+	WHERE ST_DWithin("lastlocation", "requestloc", #{rangeVal}) and not "userid" = #{userId} and "bloodgroup" = #{bloodGroup};
+	</select>
+			
 </mapper>

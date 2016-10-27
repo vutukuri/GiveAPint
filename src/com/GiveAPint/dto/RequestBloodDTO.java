@@ -1,16 +1,13 @@
 package com.GiveAPint.dto;
 
 import java.sql.Timestamp;
-<<<<<<< Updated upstream
 import java.util.List;
 
 import com.GiveAPint.persistence.dbdo.ResultDBDO;
-=======
+
 import java.util.Date;
-import java.util.List;
 
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
->>>>>>> Stashed changes
 
 /**
  * Stores everything related to a request. [requestor's user id, timestamp,
@@ -20,7 +17,6 @@ import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
  * @author abhi
  *
  */
-
 public class RequestBloodDTO {
 
 	private int userId;
@@ -33,9 +29,14 @@ public class RequestBloodDTO {
 	private int kVal;
 	private double rangeVal;
 	private String token;
-<<<<<<< Updated upstream
-	private List<ResultDBDO> resultList;
-	private Integer requestId;
+	//TODO Updated upstream
+	//private List<ResultDBDO> resultList;
+	private List<QueryResultDBDO> queryResult;
+	private List<String> bloodDonationTypes;
+	private Date currentDate;
+	private double longCoord;
+	private double latCoord;
+	private String error;
 
 	public RequestBloodDTO(Integer userId, String status, Timestamp timeStamp, int emergencyLevel, String bloodGroup,
 			String queryType, double rangeVal, String token) {
@@ -48,21 +49,12 @@ public class RequestBloodDTO {
 		this.queryType = queryType;
 		this.rangeVal = rangeVal;
 		this.token = token;
-
-=======
-	private List<QueryResultDBDO> queryResult;
-	private List<String> bloodDonationTypes;
-	private Date currentDate;
-	private double longCoord;
-	private double latCoord;
-	private String error;
-
+	}
 	// This date is used as an metric to compare the timestamps in order to
 	// retrieve the users who are eligible to donate.
 	public RequestBloodDTO()
 	{
 		this.currentDate = new Date();
->>>>>>> Stashed changes
 	}
 
 	public int getUserId()
@@ -219,20 +211,12 @@ public class RequestBloodDTO {
 		this.error = error;
 	}
 
-	public List<ResultDBDO> getResultList() {
+	/**public List<ResultDBDO> getResultList() {
 		return this.resultList;
 	}
 
 	public void setResultList(List<ResultDBDO> resultList) {
 		this.resultList = resultList;
-	}
-
-	public Integer getRequestId() {
-		return this.requestId;
-	}
-
-	public void setRequestId(Integer requestId) {
-		this.requestId = requestId;
-	}
+	}*/
 
 }

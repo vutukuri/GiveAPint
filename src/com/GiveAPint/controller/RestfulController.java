@@ -14,6 +14,7 @@ import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
+import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 import com.GiveAPint.persistence.dbdo.ResultDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
@@ -143,35 +144,32 @@ public class RestfulController {
 	@RequestMapping(value = "/requestBlood")
 	public ModelAndView requestForDonation() {
 		RequestBloodDTO request = createSampleObjects.createRequest();
-<<<<<<< Updated upstream
-		if (request.getQueryType().equals("RangeQuery")) {
+		if (request.getQueryType().equals("RangeQuery"))
+		{
 			// TODO set up a service class to perform the range query.
 			RequestBloodDTO resultRequest = requestBloodService.rangeQuery(request);
-			if (resultRequest.getError() == "" || resultRequest.getError() == null) {
+			if (resultRequest.getError() == "" || resultRequest.getError() == null)
+			{
 				System.out.println("Range Query results for the request Id: " + resultRequest.getRequestId()
 						+ "\n, for the bloodGroup: " + resultRequest.getBloodGroup() + "\n, and for the userId: "
 						+ resultRequest.getUserId() + " are");
-				for (ResultDBDO result : resultRequest.getResultList()) {
-					System.out.println("UserId: " + result.getUserId() + ", BloodGroup: " + result.getBloodGroup());
+				for (QueryResultDBDO result : resultRequest.getQueryResult())
+				{
+					System.out.println("UserId: " + result.getResultantUserId() + ", BloodGroup: " + result.getBloodGroup());
 				}
-			} else {
+			}
+			else
+			{
 				System.out.println("Performing range query resulted in an error:: please check for the details::   "
 						+ resultRequest.getError());
 			}
-		} else if (request.getQueryType().equals("KnnQuery")) {
+		} 
+		else if (request.getQueryType().equals("KnnQuery"))
+		{
 			// TODO set up a service class to implement Knn query.
-=======
-		if( request.getQueryType().equals("RangeQuery") )
-		{
-			//TODO set up a service class to perform the range query.
-		}
-		else if( request.getQueryType().equals("KnnQuery"))
-		{
-			//TODO set up a service class to implement Knn query.
 			request = requestBloodService.knnQuery(request);
 			System.out.println("Succesfully executed knn");
-			//TODO Print the result set here
->>>>>>> Stashed changes
+			// TODO Print the result set here
 		}
 		return new ModelAndView("requestBlood");
 	}

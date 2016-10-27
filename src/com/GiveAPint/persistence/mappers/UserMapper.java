@@ -21,12 +21,6 @@ import com.GiveAPint.persistence.dbdo.UserStatusDBDO;
  *
  */
 public interface UserMapper {
-<<<<<<< Updated upstream
-
-	@Update("UPDATE \"userstatus\" SET \"healthstatus\" = #{healthStatus} WHERE \"userid\" = #{userid}")
-	public Integer updateHealthStatus(@Param("userid") int userid, @Param("healthStatus") String healthStatus);
-
-=======
 	
 	/**
 	 * Updates the information corresponding to an user.
@@ -43,7 +37,6 @@ public interface UserMapper {
 	 * @param lastDonatedDate  latest Donated date
 	 * @return number of rows affected
 	 */
->>>>>>> Stashed changes
 	@Insert("INSERT INTO \"donationhistory\" (\"userid\", \"donateddate\") VALUES (#{userid}, #{lastDonatedDate})")
 	public Integer insertLastDonatedDate(@Param("userid") int userid, @Param("lastDonatedDate") Date lastDonatedDate);
 
@@ -93,8 +86,8 @@ public interface UserMapper {
 	public String getPasscode(String userName);
 
 	/**
-	 * If insertion in userstatus table gives an error. This deletes the
-	 * corresponding entry(with prevId) from the loginusers table.
+	 * If insertion in userStatus table gives an error. This deletes the
+	 * corresponding entry(with prevId) from the loginUsers table.
 	 * 
 	 * @return the number of rows affected.
 	 */

@@ -1,11 +1,11 @@
 package com.GiveAPint.dto;
 
+
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
-import com.GiveAPint.persistence.dbdo.ResultDBDO;
 
-import java.util.Date;
 
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 
@@ -29,8 +29,6 @@ public class RequestBloodDTO {
 	private int kVal;
 	private double rangeVal;
 	private String token;
-	//TODO Updated upstream
-	//private List<ResultDBDO> resultList;
 	private List<QueryResultDBDO> queryResult;
 	private List<String> bloodDonationTypes;
 	private Date currentDate;
@@ -38,24 +36,23 @@ public class RequestBloodDTO {
 	private double latCoord;
 	private String error;
 
-	public RequestBloodDTO(Integer userId, String status, Timestamp timeStamp, int emergencyLevel, String bloodGroup,
-			String queryType, double rangeVal, String token) {
+	// This date is used as an metric to compare the timestamps in order to
+	// retrieve the users who are eligible to donate.
+	public RequestBloodDTO(int userId, String status, int emergencyLevel, String bloodGroup,
+			String queryType, double rangeVal, int kVal, String token) {
 		// TODO Auto-generated constructor stub
 		this.userId = userId;
 		this.status = status;
-		this.timeStamp = timeStamp;
 		this.emergencyLevel = emergencyLevel;
 		this.bloodGroup = bloodGroup;
 		this.queryType = queryType;
 		this.rangeVal = rangeVal;
+		this.kVal = kVal;
 		this.token = token;
-	}
-	// This date is used as an metric to compare the timestamps in order to
-	// retrieve the users who are eligible to donate.
-	public RequestBloodDTO()
-	{
 		this.currentDate = new Date();
 	}
+
+
 
 	public int getUserId()
 	{
@@ -92,9 +89,9 @@ public class RequestBloodDTO {
 		return this.timeStamp;
 	}
 
-	public void setTimeStamp(Timestamp timeStamp)
+	public void setTimeStamp(long ms)
 	{
-		this.timeStamp = timeStamp;
+		this.timeStamp = new Timestamp(ms);
 	}
 
 	public int getEmergencyLevel() {
@@ -210,13 +207,5 @@ public class RequestBloodDTO {
 	{
 		this.error = error;
 	}
-
-	/**public List<ResultDBDO> getResultList() {
-		return this.resultList;
-	}
-
-	public void setResultList(List<ResultDBDO> resultList) {
-		this.resultList = resultList;
-	}*/
 
 }

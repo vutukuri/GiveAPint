@@ -1,4 +1,3 @@
-/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/GeoQueryMapper.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RegisterUserServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UpdateUserStatusDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserStatusDBDO.java
@@ -31,4 +30,3 @@
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/LoginUserDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/constants/ProjectConstants.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/LoginUserServiceImpl.java
-/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/ResultDBDO.java

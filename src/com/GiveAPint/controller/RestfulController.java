@@ -15,7 +15,6 @@ import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
-import com.GiveAPint.persistence.dbdo.ResultDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.LoginUserService;
@@ -143,10 +142,10 @@ public class RestfulController {
 
 	@RequestMapping(value = "/requestBlood")
 	public ModelAndView requestForDonation() {
-		RequestBloodDTO request = createSampleObjects.createRequest();
+		//The argument should be "KnnQuery" or "RangeQuery"
+		RequestBloodDTO request = createSampleObjects.createRequest("RangeQuery");
 		if (request.getQueryType().equals("RangeQuery"))
 		{
-			// TODO set up a service class to perform the range query.
 			RequestBloodDTO resultRequest = requestBloodService.rangeQuery(request);
 			if (resultRequest.getError() == "" || resultRequest.getError() == null)
 			{
@@ -166,7 +165,6 @@ public class RestfulController {
 		} 
 		else if (request.getQueryType().equals("KnnQuery"))
 		{
-			// TODO set up a service class to implement Knn query.
 			request = requestBloodService.knnQuery(request);
 			System.out.println("Succesfully executed knn");
 			// TODO Print the result set here

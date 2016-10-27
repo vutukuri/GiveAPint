@@ -1,11 +1,9 @@
 com/GiveAPint/service/RegisterUserService.class
 com/GiveAPint/service/LoginUserService.class
-com/GiveAPint/persistence/mappers/GeoQueryMapper.class
 com/GiveAPint/persistence/mappers/RequestMapper.class
 com/GiveAPint/dto/LoginUserDTO.class
 com/GiveAPint/persistence/dbdo/AcceptorDBDO.class
 com/GiveAPint/service/UserLocationFetchServiceImpl.class
-com/GiveAPint/persistence/dbdo/ResultDBDO.class
 com/GiveAPint/persistence/mappers/LocationMapper.class
 com/GiveAPint/persistence/dbdo/LocationDBDO.class
 com/GiveAPint/dto/UpdateUserStatusDTO.class

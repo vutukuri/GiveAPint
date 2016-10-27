@@ -6,13 +6,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.GiveAPint.dto.RequestBloodDTO;
 
-import com.GiveAPint.persistence.dbdo.ResultDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
@@ -76,23 +74,24 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 			//TODO need to check for error if the list of bloodDonationtypes returned is null.
 			//get the list of blood types which can be in the donation list for this request.
 			request.setBloodDonationTypes(getDonorsForBloodType(request.getBloodGroup()));
-			
-
-				System.out.println("Got the required bloodtypes");
-				Integer status = requestMapper.insertRequest(request);
-				System.out.println("The return value from the query which inserts the request:"+status);
-				System.out.println("Newly inserted request Id is:" +request.getRequestId());
-				//TODO need to get the location of the corresponding userId.
-				LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
-				request.setLongCoord(userCurrentLocation.getLongCoord());
-				request.setLatCoord(userCurrentLocation.getLatCoord());
-				List<QueryResultDBDO> results = requestMapper.getKNearestNeighbors(request);
-				request.setQueryResult(results);
-				System.out.println("The result from the knearest queries are:");
-				for(QueryResultDBDO result : results )
-				{
-					System.out.println("User:" +result.getResultantUserId() + "and his blood group is:" +result.getBloodGroup());
-				}
+			System.out.println("Got the required bloodtypes");
+			Integer status = requestMapper.insertRequest(request);
+			System.out.println("The return value from the query which inserts the request:"+status);
+			System.out.println("Newly inserted request Id is:" +request.getRequestId());
+			//TODO need to get the location of the corresponding userId.
+			LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
+			request.setLongCoord(userCurrentLocation.getLongCoord());
+			request.setLatCoord(userCurrentLocation.getLatCoord());
+			System.out.println("The location of the user passed:" +request.getLongCoord() + " " + request.getLatCoord());;
+			List<QueryResultDBDO> results = requestMapper.getKNearestNeighbors(request);
+			request.setQueryResult(results);
+			System.out.println("The result from the knearest queries are:");
+			System.out.println("The size of the results are:"  +results.size());
+			for(QueryResultDBDO result : results )
+			{
+				System.out.println("User:" + result.getResultantUserId() + "and his blood group is:"
+						+ result.getBloodGroup() + " " + "at a distance:" + result.getDistance());
+			}
 			/**catch(Exception  e)
 			{
 				System.out.println("Some exception occurred");
@@ -106,47 +105,47 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 			System.out.println("token is not valid");
 			request.setError("Token do not match with the one in the database, please verify");
 		}
-		
 		return request;
 	}
 
 	@Override
 	public RequestBloodDTO rangeQuery(RequestBloodDTO request) {
-		// TODO Auto-generated method stub
-		try {
-			String userName = userMapper.getUserName(request.getUserId());
-			if (loginUserService.validateToken(userName, request.getToken()) == false) {
-				request.setError("Token not matched!");
-				return request;
+		System.out.println("came into the service class");
+		System.out.println("User id: "+ request.getUserId() + "token value " + request.getToken());
+		String userName = userMapper.getUserName(request.getUserId());
+		if( loginUserService.validateToken(userName, request.getToken()) )
+		{
+			//TODO need to check for error if the list of bloodDonationtypes returned is null.
+			//get the list of blood types which can be in the donation list for this request.
+			request.setBloodDonationTypes(getDonorsForBloodType(request.getBloodGroup()));
+			System.out.println("Got the required bloodtypes");
+			Integer status = requestMapper.insertRequest(request);
+			System.out.println("The return value from the query which inserts the request:"+status);
+			System.out.println("Newly inserted request Id is:" +request.getRequestId());
+			LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
+			request.setLongCoord(userCurrentLocation.getLongCoord());
+			request.setLatCoord(userCurrentLocation.getLatCoord());
+			List<QueryResultDBDO> results = requestMapper.rangeQuery(request);
+			request.setQueryResult(results);
+			System.out.println("The result from the knearest queries are:");
+			for(QueryResultDBDO result : results )
+			{
+				System.out.println("User:" + result.getResultantUserId() + "and his blood group is:"
+						+ result.getBloodGroup() + " " + "at a distance:" + result.getDistance());
 			}
-		} catch (Exception e) {
-			request.setError(e.getCause().toString());
-			return request;
+			/**catch(Exception  e)
+			{
+				System.out.println("Some exception occurred");
+				request.setError(e.getLocalizedMessage());
+			}**/
+			//Need to set the resultant requestID to the DTO so that it can be used by client for further
+			//request and to get the info regarding it.
 		}
-
-		try {
-			requestMapper.insertRequest(request);
-		} catch (Exception e) {
-			request.setError(e.getCause().toString());
-			return request;
+		else
+		{
+			System.out.println("token is not valid");
+			request.setError("Token do not match with the one in the database, please verify");
 		}
-		Integer requestId;
-		try {
-			requestId = requestMapper.getRequestId(request.getUserId());
-			request.setRequestId(requestId);
-		} catch (Exception e) {
-			request.setError(e.getCause().toString());
-			return request;
-		}
-		
-		try {
-			List<QueryResultDBDO> resultList = requestMapper.rangeQuery(request);
-			request.setQueryResult(resultList);
-		} catch (Exception e) {
-			request.setError(e.getCause().toString());
-		}
-
 		return request;
 	}
-
 }

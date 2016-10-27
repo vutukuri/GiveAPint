@@ -29,11 +29,19 @@
 	</select>
 	
 	<select id="rangeQuery" parameterType="map" resultMap="GeoQueryResultMap">
-	SELECT 
-	"userid", 
-	"bloodgroup"
-	FROM "userstatus", (SELECT "lastlocation" as "requestloc" FROM "userstatus" WHERE "userid" = #{userId}) as "request"
-	WHERE ST_DWithin("lastlocation", "requestloc", #{rangeVal}) and not "userid" = #{userId} and "bloodgroup" = #{bloodGroup};
+		SELECT "userid", 
+		extract(epoch from nextavailabledate) as times,
+		"bloodgroup", 
+		ST_Distance("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326)) as distance 
+		from userstatus
+		WHERE bloodgroup IN   
+		<foreach item="item" index="index" collection="bloodDonationTypes"
+      	open="(" separator="," close=")">
+        #{item}
+  		</foreach>
+  		AND extract(epoch from nextavailabledate) &#60; extract(epoch from #{currentDate} :: Date) 
+  		AND not "userid" = #{userId} 
+  		AND ST_DWithin("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326), #{rangeVal});
 	</select>
 			
 </mapper>

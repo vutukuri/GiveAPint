@@ -2,7 +2,6 @@ package com.GiveAPint.testdata;
 
 import org.postgis.Point;
 import java.util.Date;
-import java.sql.Timestamp;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,24 +127,14 @@ public class CreateObjects {
 		return newLocation;
 	}
 	
-	public RequestBloodDTO createRequest()
+	public RequestBloodDTO createRequest(String queryType)
 	{
-		Date date = new Date();
-		RequestBloodDTO newRequest = new RequestBloodDTO(ProjectConstants.sampleUserId, "Pending", new Timestamp(date.getTime()) , 5, "B+", "RangeQuery", 5000, ProjectConstants.token);
-		//TODO need to implement a method which returns a dummy request matching the DTO patterns.
-		if( newRequest.getQueryType().equals("RangeQuery") )
-			return newRequest;
-		RequestBloodDTO request = new RequestBloodDTO();
-		request.setUserId(5);
-		request.setBloodGroup(ProjectConstants.bloodGroup);
-		request.setEmergencyLevel(5);
-		request.setkVal(3);
-		request.setQueryType("KnnQuery");
-		request.setStatus(ProjectConstants.status);
-		request.setToken(ProjectConstants.dummyToken);
-		request.setTimeStamp(new Timestamp(request.getCurrentDate().getTime()));
+		RequestBloodDTO request = new RequestBloodDTO(5, ProjectConstants.status, 5,
+				ProjectConstants.bloodGroup, queryType, 35000, 3, ProjectConstants.dummyToken);
+		request.setTimeStamp(request.getCurrentDate().getTime());
 		return request;
 		//Need to set timestamp.
+
 	}
 
 }

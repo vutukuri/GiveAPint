@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.service.RegisterUserService;
+import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
@@ -130,11 +131,17 @@ public class CreateObjects {
 	public RequestBloodDTO createRequest(String queryType)
 	{
 		RequestBloodDTO request = new RequestBloodDTO(5, ProjectConstants.status, 5,
-				ProjectConstants.bloodGroup, queryType, 35000, 3, ProjectConstants.dummyToken);
+				ProjectConstants.bloodGroup, queryType, 500000, 3, ProjectConstants.dummyToken);
 		request.setTimeStamp(request.getCurrentDate().getTime());
 		return request;
 		//Need to set timestamp.
-
+	}
+	
+	public AcceptorDTO createAcceptor()
+	{
+		//(requestId, userId, token, "Accept or Decline")
+		AcceptorDTO acceptor = new AcceptorDTO(2, 1, ProjectConstants.token, "Decline");
+		return acceptor;
 	}
 
 }

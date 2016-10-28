@@ -66,26 +66,25 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 	@Override
 	public RequestBloodDTO knnQuery(RequestBloodDTO request) {
 		//TODO need to validate the token first. //DONE
-		System.out.println("came into the service class");
+		System.out.println("came into the service class, knnquery");
 		System.out.println("User id: "+ request.getUserId() + "token value " + request.getToken());
 		String userName = userMapper.getUserName(request.getUserId());
 		if( loginUserService.validateToken(userName, request.getToken()) )
 		{
-			//TODO need to check for error if the list of bloodDonationtypes returned is null.
 			//get the list of blood types which can be in the donation list for this request.
 			request.setBloodDonationTypes(getDonorsForBloodType(request.getBloodGroup()));
 			System.out.println("Got the required bloodtypes");
-			Integer status = requestMapper.insertRequest(request);
-			System.out.println("The return value from the query which inserts the request:"+status);
-			System.out.println("Newly inserted request Id is:" +request.getRequestId());
-			//TODO need to get the location of the corresponding userId.
 			LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
 			request.setLongCoord(userCurrentLocation.getLongCoord());
 			request.setLatCoord(userCurrentLocation.getLatCoord());
 			System.out.println("The location of the user passed:" +request.getLongCoord() + " " + request.getLatCoord());;
 			List<QueryResultDBDO> results = requestMapper.getKNearestNeighbors(request);
 			request.setQueryResult(results);
-			System.out.println("The result from the knearest queries are:");
+			request.setTotalNumber(results.size());
+			//Before inserting also, include the number of returned users from the query.
+			Integer status = requestMapper.insertRequest(request);
+			System.out.println("The return value from the query which inserts the request:"+status);
+			System.out.println("Newly inserted request Id is:" +request.getRequestId());
 			System.out.println("The size of the results are:"  +results.size());
 			for(QueryResultDBDO result : results )
 			{
@@ -110,24 +109,26 @@ public class RequestForBloodServiceImpl implements RequestForBloodService{
 
 	@Override
 	public RequestBloodDTO rangeQuery(RequestBloodDTO request) {
-		System.out.println("came into the service class");
+		System.out.println("came into the service class, rangeQuery");
 		System.out.println("User id: "+ request.getUserId() + "token value " + request.getToken());
 		String userName = userMapper.getUserName(request.getUserId());
 		if( loginUserService.validateToken(userName, request.getToken()) )
 		{
-			//TODO need to check for error if the list of bloodDonationtypes returned is null.
 			//get the list of blood types which can be in the donation list for this request.
 			request.setBloodDonationTypes(getDonorsForBloodType(request.getBloodGroup()));
 			System.out.println("Got the required bloodtypes");
-			Integer status = requestMapper.insertRequest(request);
-			System.out.println("The return value from the query which inserts the request:"+status);
-			System.out.println("Newly inserted request Id is:" +request.getRequestId());
 			LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
 			request.setLongCoord(userCurrentLocation.getLongCoord());
 			request.setLatCoord(userCurrentLocation.getLatCoord());
+			System.out.println("The location of the user passed:" +request.getLongCoord() + " " + request.getLatCoord());;
 			List<QueryResultDBDO> results = requestMapper.rangeQuery(request);
 			request.setQueryResult(results);
-			System.out.println("The result from the knearest queries are:");
+			request.setTotalNumber(results.size());
+			//Before inserting also, include the number of returned users from the query.
+			Integer status = requestMapper.insertRequest(request);
+			System.out.println("The return value from the query which inserts the request:"+status);
+			System.out.println("Newly inserted request Id is:" +request.getRequestId());
+			System.out.println("The size of the results are:"  +results.size());
 			for(QueryResultDBDO result : results )
 			{
 				System.out.println("User:" + result.getResultantUserId() + "and his blood group is:"

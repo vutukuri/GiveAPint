@@ -17,8 +17,8 @@ import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
  */
 public interface RequestMapper {
 
-	@Insert("INSERT INTO \"requests\" (\"requestid\",\"userid\", \"requeststatus\", \"requesttimestamp\", \"emergencylevel\", \"requestedbloodgroup\") VALUES (#{requestId}, #{userId}, #{status}, #{timeStamp}, #{emergencyLevel}, #{bloodGroup})")
-	@SelectKey(statement="SELECT nextVal('requests_requestid_seq')", keyProperty="requestId", before = true, resultType=int.class)
+	@Insert("INSERT INTO \"requests\" (\"requestid\", \"userid\", \"requeststatus\", \"requesttimestamp\", \"emergencylevel\", \"requestedbloodgroup\", \"totalnumber\", \"respondednumber\") VALUES (#{requestId}, #{userId}, #{status}, #{timeStamp}, #{emergencyLevel}, #{bloodGroup}, #{totalNumber}, #{respondedNumber})")
+	@SelectKey(statement = "SELECT nextVal('requests_requestid_seq')", keyProperty = "requestId", before = true, resultType = int.class)
 	public Integer insertRequest(RequestBloodDTO request);
 	
 	@Select("SELECT max(\"requestid\") FROM \"requests\" WHERE \"userid\" = #{userId} ")

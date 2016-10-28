@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
+import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
@@ -17,6 +18,7 @@ import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
 import com.GiveAPint.persistence.mappers.UserMapper;
+import com.GiveAPint.service.AcceptorResponseService;
 import com.GiveAPint.service.LoginUserService;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.service.RequestForBloodService;
@@ -52,6 +54,8 @@ public class RestfulController {
 	private UserLocationUpdateService locationUpdateService;
 	@Autowired
 	private RequestForBloodService requestBloodService;
+	@Autowired
+	private AcceptorResponseService acceptorResponseService;
 
 	/**
 	 * Register an user.
@@ -170,6 +174,22 @@ public class RestfulController {
 			// TODO Print the result set here
 		}
 		return new ModelAndView("requestBlood");
+	}
+	
+	@RequestMapping( value = "/respondToRequest")
+	public ModelAndView respondToRequest()
+	{
+		AcceptorDTO acceptor = createSampleObjects.createAcceptor();
+		acceptor = acceptorResponseService.saveUserResponse(acceptor);
+		if( acceptor.getError() == null || acceptor.getError().equals("") )
+		{
+			System.out.println("Acceptor response saved succesfully.");
+		}
+		else
+		{
+			System.out.println("Error occurred while updating the acceptor list");
+		}
+		return new ModelAndView("acceptedUsers");
 	}
 
 }

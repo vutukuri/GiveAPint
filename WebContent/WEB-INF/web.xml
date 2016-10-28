@@ -20,5 +20,6 @@
     <url-pattern>/updateStatus</url-pattern>
     <url-pattern>/updateLocation</url-pattern>
     <url-pattern>/requestBlood</url-pattern>
+    <url-pattern>/respondToRequest</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -34,6 +34,8 @@ public class RequestBloodDTO {
 	private Date currentDate;
 	private double longCoord;
 	private double latCoord;
+	private int totalNumber;
+	private int respondedNumber;
 	private String error;
 
 	// This date is used as an metric to compare the timestamps in order to
@@ -50,6 +52,8 @@ public class RequestBloodDTO {
 		this.kVal = kVal;
 		this.token = token;
 		this.currentDate = new Date();
+		//Initially keep the value to 0. Later, increment or decrement based on the response.
+		this.respondedNumber = 0;
 	}
 
 
@@ -198,6 +202,26 @@ public class RequestBloodDTO {
 		this.latCoord = latCoord;
 	}
 	
+	public int getTotalNUmber()
+	{
+		return this.totalNumber;
+	}
+
+	public void setTotalNumber(int totalNumber)
+	{
+		this.totalNumber = totalNumber;
+	}
+
+	public int getRespondedNumber()
+	{
+		return this.respondedNumber;
+	}
+
+	public void setRespondedNumber(int respondedNumber)
+	{
+		this.respondedNumber = respondedNumber;
+	}
+
 	public String getError()
 	{
 		return this.error;

@@ -191,5 +191,13 @@ public class RestfulController {
 		}
 		return new ModelAndView("acceptedUsers");
 	}
+	
+	@RequestMapping(value = "/getRequestsForUser")
+	public ModelAndView getRequestsMadeByUser()
+	{
+		acceptorResponseService.getUserRequests(5, ProjectConstants.dummyToken);
+		System.out.println("Returned Succesfully from the service class with all the requests list:");
+		return new ModelAndView("getAllRequests");
+	}
 
 }

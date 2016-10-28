@@ -5,13 +5,32 @@
 
 <mapper namespace="com.GiveAPint.persistence.mappers.AcceptorMapper">
 
-<update id="updateRequestStatus" parameterType="map">
-  update requests
-    <set>
-      <if test="response !=  'Decline'">requeststatus='Donors Found',</if>
-		respondednumber = respondednumber + 1
-    </set>
-  where requestid=#{requestId};
-</update>
+	<resultMap type="com.GiveAPint.persistence.dbdo.UserRequestsDBDO"
+		id="UserRequestsResultMap">
+		<result column="requestid" property="requestId" />
+		<result column="requeststatus" property="status" />		
+		<result column="emergencylevel" property="emergencyLevel" />
+		<result column="requestedbloodgroup" property="requestedBloodType" />
+	</resultMap>
+
+	<update id="updateRequestStatus" parameterType="map">
+		update requests
+		<set>
+			<if test="response !=  'Decline'">requeststatus='Donors Found',</if>
+			respondednumber = respondednumber + 1
+		</set>
+		where requestid=#{requestId};
+	</update>
+
+	<select id="getAllRequests" parameterType="map" resultMap="UserRequestsResultMap">
+		SELECT
+		"requestid",
+		"requeststatus",
+		extract(epoch from requesttimestamp) * 1000 as timestamp,
+		"emergencylevel",
+		"requestedbloodgroup"
+		FROM requests where userid=#{userId}
+		ORDER BY requesttimestamp DESC;
+	</select>
 
 </mapper>

@@ -19,8 +19,8 @@
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/LocationMapper.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationFetchServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationUpdateService.java
-/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/AcceptorDBDO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UserDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserRequestsDBDO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/RequestBloodDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RequestForBloodServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/QueryResultDBDO.java
@@ -28,6 +28,7 @@
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/AcceptorDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/UserMapper.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RegisterUserService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UserRequestsDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/UserLocationFetchService.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/AcceptorMapper.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/LoginUserDTO.java

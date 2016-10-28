@@ -1,12 +1,24 @@
 package com.GiveAPint.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.UserRequestsDTO;
+import com.GiveAPint.persistence.dbdo.UserRequestsDBDO;
 import com.GiveAPint.persistence.mappers.AcceptorMapper;
 import com.GiveAPint.persistence.mappers.UserMapper;
 
+/**
+ * This class is responsible to update the request status, acceptor list
+ * corresponding to a request and also fetches the appropriate info pertained to
+ * the request.
+ * 
+ * @author mamanoha
+ *
+ */
 @Service("AcceptorResponseService")
 public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	
@@ -43,6 +55,29 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 			acceptor.setError("Token corresponding to user is not valid, please verify.");
 		}
 		return acceptor;
+	}
+
+	@Override
+	public UserRequestsDTO getUserRequests(int userId, String token) {
+		// TODO Auto-generated method stub
+		String userName = userMapper.getUserName(userId);
+		UserRequestsDTO requests = new UserRequestsDTO();
+		requests.setUserId(userId);
+		if( loginUserService.validateToken(userName, token) )
+		{
+			List<UserRequestsDBDO> results = acceptorMapper.getAllRequests(userId);
+			requests.setRequests(results);
+			System.out.println("The requests which are made by the user:" +userId);
+			for(UserRequestsDBDO request : results )
+			{
+				System.out.println("Request id:" +request.getRequestId() + ", timestamp" + request.getTimestamp());
+			}
+		}
+		else
+		{
+			requests.setError("Token Invalid, please verify.");
+		}
+		return requests;
 	}
 
 }

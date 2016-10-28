@@ -21,5 +21,6 @@
     <url-pattern>/updateLocation</url-pattern>
     <url-pattern>/requestBlood</url-pattern>
     <url-pattern>/respondToRequest</url-pattern>
+    <url-pattern>/getRequestsForUser</url-pattern>
   </servlet-mapping>
 </web-app>

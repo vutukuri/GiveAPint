@@ -2,10 +2,10 @@ com/GiveAPint/service/RegisterUserService.class
 com/GiveAPint/service/LoginUserService.class
 com/GiveAPint/persistence/mappers/RequestMapper.class
 com/GiveAPint/dto/LoginUserDTO.class
-com/GiveAPint/persistence/dbdo/AcceptorDBDO.class
 com/GiveAPint/service/UserLocationFetchServiceImpl.class
 com/GiveAPint/persistence/mappers/LocationMapper.class
 com/GiveAPint/persistence/dbdo/LocationDBDO.class
+com/GiveAPint/persistence/dbdo/UserRequestsDBDO.class
 com/GiveAPint/dto/UpdateUserStatusDTO.class
 com/GiveAPint/persistence/dbdo/TokenDBDO.class
 com/GiveAPint/service/AcceptorResponseService.class
@@ -13,6 +13,7 @@ com/GiveAPint/service/RegisterUserServiceImpl.class
 com/GiveAPint/dto/LocationDTO.class
 com/GiveAPint/service/UpdateStatusService.class
 com/GiveAPint/persistence/mappers/TokenMapper.class
+com/GiveAPint/dto/UserRequestsDTO.class
 com/GiveAPint/service/UserLocationUpdateService.class
 com/GiveAPint/service/UserLocationFetchService.class
 com/GiveAPint/service/UpdateStatusServiceImpl.class

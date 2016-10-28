@@ -1,6 +1,7 @@
 package com.GiveAPint.service;
 
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
 
 public interface AcceptorResponseService {
@@ -12,7 +13,7 @@ public interface AcceptorResponseService {
 	 * 
 	 * @param acceptor
 	 *            AcceptorDTO which contains the required info.
-	 * @return AcceptorDTO, sets error field incase of any exception encountered or token is invalid. 
+	 * @return AcceptorDTO, sets error field in case of any exception encountered or token is invalid. 
 	 */
 	public AcceptorDTO saveUserResponse(AcceptorDTO acceptor);
 	
@@ -24,5 +25,15 @@ public interface AcceptorResponseService {
 	 * @return DTO which contains a list of UserStatusDBDO with the essential info regarding the request.
 	 */
 	public UserRequestsDTO getUserRequests(int userid, String token);
+	
+	/**
+	 * This method fetches all the accepted users for a given request along with some other essential
+	 * information which helps the requester to take a decision on contacting a particular donor.
+	 * @param requesId of the request
+	 * @param userId of the requester
+	 * @param token which is used to validate the requester
+	 * @return RequestInfoDTO which contains the list of accepted users along with their information.
+	 */
+	public RequestInfoDTO getRequestInformation(int requesId, int userId, String token);
 
 }

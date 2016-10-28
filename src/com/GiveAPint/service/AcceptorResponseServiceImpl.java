@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
 import com.GiveAPint.persistence.dbdo.UserRequestsDBDO;
 import com.GiveAPint.persistence.mappers.AcceptorMapper;
@@ -78,6 +79,12 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 			requests.setError("Token Invalid, please verify.");
 		}
 		return requests;
+	}
+
+	@Override
+	public RequestInfoDTO getRequestInformation(int requesId, int userId, String token) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

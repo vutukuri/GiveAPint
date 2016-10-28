@@ -1,3 +1,4 @@
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/RequestInfoDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RegisterUserServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UpdateUserStatusDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserStatusDBDO.java
@@ -22,6 +23,7 @@
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/UserDTO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/UserRequestsDBDO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/dto/RequestBloodDTO.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/DonorDBDO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/RequestForBloodServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/QueryResultDBDO.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/dbdo/LocationDBDO.java

@@ -10,11 +10,13 @@ com/GiveAPint/dto/UpdateUserStatusDTO.class
 com/GiveAPint/persistence/dbdo/TokenDBDO.class
 com/GiveAPint/service/AcceptorResponseService.class
 com/GiveAPint/service/RegisterUserServiceImpl.class
+com/GiveAPint/persistence/dbdo/DonorDBDO.class
 com/GiveAPint/dto/LocationDTO.class
 com/GiveAPint/service/UpdateStatusService.class
 com/GiveAPint/persistence/mappers/TokenMapper.class
 com/GiveAPint/dto/UserRequestsDTO.class
 com/GiveAPint/service/UserLocationUpdateService.class
+com/GiveAPint/dto/RequestInfoDTO.class
 com/GiveAPint/service/UserLocationFetchService.class
 com/GiveAPint/service/UpdateStatusServiceImpl.class
 com/GiveAPint/persistence/dbdo/QueryResultDBDO.class

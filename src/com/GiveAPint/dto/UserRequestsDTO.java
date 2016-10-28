@@ -5,7 +5,9 @@ import java.util.List;
 import com.GiveAPint.persistence.dbdo.UserRequestsDBDO;
 
 /**
- * Maps the request info along with the error field.
+ * Maps the request info along with the error field. This class maps the data
+ * that is sent to the user.
+ * 
  * @author mamanoha
  *
  */

@@ -2,7 +2,7 @@ package com.GiveAPint.dto;
 
 /**
  * AcceptorDTO is used to map the data when user responds to the request sent
- * through notification.
+ * through notification. His response is stored in the "response" field.
  * 
  * @author mamanoha
  *

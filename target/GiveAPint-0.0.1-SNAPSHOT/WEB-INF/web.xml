@@ -22,5 +22,6 @@
     <url-pattern>/requestBlood</url-pattern>
     <url-pattern>/respondToRequest</url-pattern>
     <url-pattern>/getRequestsForUser</url-pattern>
+    <url-pattern>/getRequestInfo</url-pattern>
   </servlet-mapping>
 </web-app>

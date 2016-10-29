@@ -37,3 +37,4 @@
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/constants/ProjectConstants.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/LoginUserServiceImpl.java
 /home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/service/AcceptorResponseService.java
+/home/mamanoha/javaworkspace/GiveAPint/src/com/GiveAPint/persistence/mappers/RequestInfoMapper.java

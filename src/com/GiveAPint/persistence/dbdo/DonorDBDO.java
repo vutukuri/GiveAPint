@@ -1,15 +1,14 @@
 package com.GiveAPint.persistence.dbdo;
 
-import java.util.Date;
 
 public class DonorDBDO {
 
 	private String firstName;
-	private Date dob;
+	private int age;
 	private int userId;
 	private String bloodGroup;
 	private String phoneNumber;
-	private double distance;
+	private double distanceInMiles;
 
 	public String getFirstName()
 	{
@@ -21,24 +20,14 @@ public class DonorDBDO {
 		this.firstName = firstName;
 	}
 
-	public Date getDob()
+	public int getAge()
 	{
-		return this.dob;
+		return this.age;
 	}
 
-	public void setDob(Date dob)
+	public void setDob(int age)
 	{
-		this.dob = dob;
-	}
-
-	public int getUserId()
-	{
-		return this.userId;
-	}
-
-	public void setUserId(int userId)
-	{
-		this.userId = userId;
+		this.age = age;
 	}
 
 	public String getBloodGroup()
@@ -61,14 +50,24 @@ public class DonorDBDO {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public double getDistance()
+	public double getDistanceInMiles()
 	{
-		return this.distance;
+		return this.distanceInMiles;
 	}
 
-	public void setDistance(double distance)
+	public void setDistanceInMiles(double distance)
 	{
-		this.distance = distance;
+		this.distanceInMiles = distance;
+	}
+
+	public int getUserId()
+	{
+		return this.userId;
+	}
+
+	public void setUserId(int userId)
+	{
+		this.userId = userId;
 	}
 	
 	

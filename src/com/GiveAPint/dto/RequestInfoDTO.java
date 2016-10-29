@@ -15,10 +15,12 @@ import com.GiveAPint.persistence.dbdo.DonorDBDO;
 public class RequestInfoDTO {
 
 	private int requestId;
-	private int userId;
+	private int requesterId;
 	private int totalNumber;
 	private int respondedNumber;
+	//List of accepted users along with their info which is useful to judge the donor.
 	private List<DonorDBDO> acceptedUsers;
+	//Message will be set if there are no accepted users at the moment.
 	private String message;
 	private String error;
 
@@ -26,19 +28,20 @@ public class RequestInfoDTO {
 	{
 		return this.requestId;
 	}
+
 	public void setRequestId(int requestId)
 	{
 		this.requestId = requestId;
 	}
 
-	public int getUserId()
+	public int getRequesterId()
 	{
-		return userId;
+		return this.requesterId;
 	}
 
-	public void setUserId(int userId)
+	public void setRequesterId(int requesterId)
 	{
-		this.userId = userId;
+		this.requesterId = requesterId;
 	}
 
 	public int getTotalNumber()

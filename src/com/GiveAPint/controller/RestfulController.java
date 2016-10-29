@@ -199,5 +199,19 @@ public class RestfulController {
 		System.out.println("Returned Succesfully from the service class with all the requests list:");
 		return new ModelAndView("getAllRequests");
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/getRequestInfo")
+	public ModelAndView getRequestInformation()
+	{
+		//This would be a GET call with requestid, userid, and token as arguments.
+		//requestId, userId, token
+		acceptorResponseService.getRequestInformation(2, 5, ProjectConstants.dummyToken);
+		System.out.println("Service call returned succesfully");
+		return new ModelAndView("requestInfo");
+	}
 
 }

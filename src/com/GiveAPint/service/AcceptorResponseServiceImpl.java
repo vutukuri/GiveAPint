@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
+import com.GiveAPint.persistence.dbdo.DonorDBDO;
 import com.GiveAPint.persistence.dbdo.UserRequestsDBDO;
 import com.GiveAPint.persistence.mappers.AcceptorMapper;
+import com.GiveAPint.persistence.mappers.RequestInfoMapper;
 import com.GiveAPint.persistence.mappers.UserMapper;
 
 /**
@@ -29,6 +31,8 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	private LoginUserService loginUserService;
 	@Autowired
 	private AcceptorMapper acceptorMapper;
+	@Autowired
+	private RequestInfoMapper requestInfoMapper;
 
 	@Override
 	public AcceptorDTO saveUserResponse(AcceptorDTO acceptor) {
@@ -82,9 +86,40 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	}
 
 	@Override
-	public RequestInfoDTO getRequestInformation(int requesId, int userId, String token) {
-		// TODO Auto-generated method stub
-		return null;
+	public RequestInfoDTO getRequestInformation(int requestId, int userId, String token)
+	{
+		String userName = userMapper.getUserName(userId);
+		RequestInfoDTO result = new RequestInfoDTO();
+		if( loginUserService.validateToken(userName, token) )
+		{
+			result = requestInfoMapper.getRequestData(requestId);
+			System.out.println("Basic request data:" +result.getRequestId() + " numb:" +result.getTotalNumber()
+			+ " resp:" +result.getRespondedNumber() + " requesterid: " +result.getRequesterId());
+			List<Integer> acceptors = requestInfoMapper.getAllAcceptors(requestId);
+			if( acceptors.size() == 0 )
+			{
+				//If there are no users who accepted the request.
+				//We just set the message and return the DTO. This message can be used to confirm
+				//the same.
+				result.setMessage("There are no users who accepted the requested,"
+						+ " Please check back in some time");
+				return result;
+			}
+			System.out.println("Got the list of acceptors, size:" +acceptors.size());
+			List<DonorDBDO> donors = requestInfoMapper.getDonorsInfo(acceptors, userId);
+			for (DonorDBDO donor : donors) {
+				System.out.println("Donor Info: userId: " + donor.getUserId() 
+				+ " firstName: " + donor.getFirstName() + "distance: " +donor.getDistanceInMiles()
+				+ " phonenumber:" + donor.getPhoneNumber() + "age " +donor.getAge() + "\n");
+			}
+			result.setAcceptedUsers(donors);
+			
+		}
+		else
+		{
+			result.setError("Token not valid, please verify.");
+		}
+		return result;
 	}
 
 }

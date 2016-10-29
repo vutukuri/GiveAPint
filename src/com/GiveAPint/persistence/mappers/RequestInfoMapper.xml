@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.GiveAPint.persistence.mappers.RequestInfoMapper">
+
+	<resultMap type="com.GiveAPint.persistence.dbdo.DonorDBDO"
+		id="DonorResultMap">
+	</resultMap>
+	
+	<resultMap type="com.GiveAPint.dto.RequestInfoDTO" id="requestInfoDTO">
+	<result column="requestid" property="requestId"/>
+	<result column="totalnumber" property="totalNumber"/>
+	<result column="respondednumber" property="respondedNumber"/>
+	<result column="userid" property="requesterId"/>
+	</resultMap>
+
+
+	<select id="getDonorsInfo" parameterType="map"
+		resultMap="DonorResultMap">
+		SELECT
+		loginusers.userid as userId,
+		loginusers.firstname as firstName,
+		loginusers.phone as phoneNumber,
+		userstatus.bloodGroup as
+		bloodGroup,
+		EXTRACT(YEAR from age(current_date :: Date,
+		loginusers.dob)) as age,
+		ST_Distance(userstatus.lastlocation, (select
+		userstatus.lastlocation from userstatus where userstatus.userid =
+		#{userId})) /
+		1610 as
+		distanceInMiles
+		from loginusers, userstatus
+		WHERE
+		loginusers.userid = userstatus.userid
+		AND loginusers.userid IN
+		<foreach item="item" index="index" collection="acceptors"
+			open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		ORDER BY distanceInMiles;
+	</select>
+	
+	<select id="getRequestData" parameterType="map" resultMap="requestInfoDTO">
+	SELECT 
+	requestid,
+	userid,
+	totalnumber,
+	respondednumber
+	FROM requests where requestid=#{requestId}	
+	</select>
+</mapper>

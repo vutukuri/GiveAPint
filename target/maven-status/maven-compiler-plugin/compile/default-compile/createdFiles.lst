@@ -2,6 +2,7 @@ com/GiveAPint/service/RegisterUserService.class
 com/GiveAPint/service/LoginUserService.class
 com/GiveAPint/persistence/mappers/RequestMapper.class
 com/GiveAPint/dto/LoginUserDTO.class
+com/GiveAPint/persistence/mappers/RequestInfoMapper.class
 com/GiveAPint/service/UserLocationFetchServiceImpl.class
 com/GiveAPint/persistence/mappers/LocationMapper.class
 com/GiveAPint/persistence/dbdo/LocationDBDO.class

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
@@ -92,8 +94,8 @@ public class RestfulController {
 		return new ModelAndView("login");
 	}
 
-	@RequestMapping(value = "/getAllUsers")
-	public ModelAndView getAllUsers() {
+	@RequestMapping(value = "/getAllUsers", headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody List<UserDBDO> getAllUsers() {
 		List<UserDBDO> users = userMapper.getAllUsers();
 		System.out.println("The number of users as of now:" + users.size());
 		for (UserDBDO user : users) {
@@ -102,7 +104,7 @@ public class RestfulController {
 			System.out.println("User info:  " + user.getFirstName() + "  " + user.getLastName() + "  "
 					+ user.getUserId() + "  " + user.getUserName() + "  " + user.getPasscode());
 		}
-		return new ModelAndView("getAllUsers");
+		return users;
 	}
 
 	@RequestMapping(value = "/getAllLocations")

@@ -56,7 +56,7 @@ public interface UserMapper {
 	 * @return number of rows affected.
 	 */
 	@Insert("INSERT INTO \"loginusers\" (\"userid\", \"firstname\", \"lastname\", \"passcode\", \"username\", \"phone\", \"dob\",\"gender\") VALUES (#{userId}, #{firstName}, #{lastName}, #{passcode},#{userName},#{phone},#{dob},#{gender})")
-	@SelectKey(statement="SELECT nextVal('userid_seq')", keyProperty="userId", before = true, resultType=int.class)
+	@SelectKey(statement="SELECT nextVal('loginusers_userid_seq')", keyProperty="userId", before = true, resultType=int.class)
 	public int registerUser(UserDBDO newUser);
 
 	/**

@@ -16,7 +16,11 @@ public class LocationDTO {
 	private String error;
 	private String token;
 
-	public LocationDTO(Integer userid, double latCoord, double longCoord, String error, String token) {
+	public LocationDTO()
+	{
+	}
+	
+	public LocationDTO(int userid, double latCoord, double longCoord, String error, String token) {
 		this.userid = userid;
 		this.latCoord = latCoord;
 		this.longCoord = longCoord;

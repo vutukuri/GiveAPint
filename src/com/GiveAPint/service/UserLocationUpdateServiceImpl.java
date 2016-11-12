@@ -35,13 +35,16 @@ public class UserLocationUpdateServiceImpl implements UserLocationUpdateService{
 
 	public LocationDTO locationUpdate(LocationDTO newLocation) {
 
+		System.out.println("Came inside the service to update the location");
 		try {
 			String userName = userMapper.getUserName(newLocation.getUserid());
 			if ( loginService.validateToken(userName, newLocation.getToken()) == false ) {
 				newLocation.setError("Token not matched!");
+				System.out.println("Token passed is not valid");
 				return newLocation;
 			}
 		} catch (Exception e) {
+			System.out.println("Exception occured while getting the token");
 			newLocation.setError(e.getCause().toString());
 			return newLocation;
 		}
@@ -50,9 +53,10 @@ public class UserLocationUpdateServiceImpl implements UserLocationUpdateService{
 		try {
 			locationMapper.updateLocation(location);
 		} catch (Exception e) {
+			System.out.println("Exception occured while updating the location");
 			newLocation.setError(e.getCause().toString());
 		}
-
+		System.out.println("Location is updated succesfully in the service");
 		return newLocation;
 	}
 }

@@ -22,17 +22,20 @@ public class RegisterUserServiceImpl implements RegisterUserService{
 
 	@Override
 	public UserDTO insertUser(UserDTO user) {
-		
-		// TODO Auto-generated method stub
-		
+
+		//TODO need to check the userName existed previosly, if yes, we need to send
+		//error message saying that user already existed.
 		UserDBDO newUser = new UserDBDO(user);
 		try{
 			userMapper.registerUser(newUser);
-			user.setUserID(getMaxId());
+			user.setUserID(newUser.getUserId());
+			System.out.println("In service class");
+			System.out.println("new userid:" +newUser.getUserId());
+			//user.setUserID(getMaxId());
 		}catch ( Exception e ){
+			e.printStackTrace();
 			user.setError( e.getCause().toString() );
 			System.out.println(user.getError());
-			user.setUserID(0);
 			return user;
 		}
 		
@@ -40,9 +43,9 @@ public class RegisterUserServiceImpl implements RegisterUserService{
 			UserStatusDBDO userStatus = new UserStatusDBDO(user);
 			userMapper.registerUserStatus(userStatus);
 		}catch ( Exception e ){
+			e.printStackTrace();
 			user.setError( e.getCause().toString() );
 			userMapper.deleteLoginUsers(user.getUserID());
-			user.setUserID(0);
 		}
 		
 		return user;

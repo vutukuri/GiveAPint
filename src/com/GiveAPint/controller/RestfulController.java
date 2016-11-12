@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -64,12 +66,13 @@ public class RestfulController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/registerUser")
-	public ModelAndView registerUser() {
-		UserDTO user = createSampleObjects.createUser();
+	@RequestMapping(value = "/registerUser",  headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody UserDTO registerUser(@ModelAttribute UserDTO user) {
+		//UserDTO user = createSampleObjects.createUser();
+		System.out.println("Successfully triggered the controller method.");
 		user = registerService.insertUser(user);
 		System.out.println("The userId of newly created user is:" + user.getUserID());
-		return new ModelAndView("register");
+		return user;
 	}
 
 	/**
@@ -107,8 +110,8 @@ public class RestfulController {
 		return users;
 	}
 
-	@RequestMapping(value = "/getAllLocations")
-	public ModelAndView getAllLocations() {
+	@RequestMapping(value = "/getAllLocations", headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody List<LocationDBDO> getAllLocations() {
 
 		List<LocationDBDO> locations = locationService.getAllLocations();
 		if (locations != null) {
@@ -120,7 +123,7 @@ public class RestfulController {
 
 			}
 		}
-		return new ModelAndView("getAllLocations");
+		return locations;
 
 	}
 
@@ -132,10 +135,12 @@ public class RestfulController {
 		return new ModelAndView("updateStatus");
 	}
 
-	@RequestMapping(value = "/updateLocation")
-	public ModelAndView updateLocation() {
+	@RequestMapping(value = "/updateLocation",headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody LocationDTO updateLocation(@ModelAttribute LocationDTO newLocation) {
 
-		LocationDTO newLocation = createSampleObjects.createUpdateLocation();
+		//LocationDTO newLocation = createSampleObjects.createUpdateLocation();
+		try
+		{
 		newLocation = locationUpdateService.locationUpdate(newLocation);
 		if (newLocation.getError() == "" || newLocation.getError() == null) {
 			System.out.println("Location Updated!  " + newLocation.getUserid() + " " + newLocation.getLatCoord() + " "
@@ -143,7 +148,13 @@ public class RestfulController {
 		} else {
 			System.out.println("Location Updation Error" + newLocation.getError());
 		}
-		return new ModelAndView("updateLocation");
+		}
+		catch(Exception e)
+		{
+			System.out.println("Exception occured while mapping the map values to DTO in controller");
+			e.printStackTrace();
+		}
+		return newLocation;
 	}
 
 	@RequestMapping(value = "/requestBlood")

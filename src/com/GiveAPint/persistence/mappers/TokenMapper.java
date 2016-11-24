@@ -1,10 +1,13 @@
 package com.GiveAPint.persistence.mappers;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.GiveAPint.dto.NotificationTokenDTO;
 import com.GiveAPint.persistence.dbdo.TokenDBDO;
 
 /**
@@ -23,4 +26,15 @@ public interface TokenMapper {
 
 	@Insert("INSERT INTO \"tokens\"(\"username\", \"token\") VALUES(#{userName}, #{token})")
 	public int insertToken(TokenDBDO token);
+	
+	@Insert("INSERT INTO \"notifications\"(\"username\", \"regid\") VALUES(#{userName}, #{regId})")
+	public int insertNotificationToken(NotificationTokenDTO notification);
+	
+	/**
+	 * Returns us the list of username and regid key-value pairs.
+	 * This list can be used to send the notifications to specific devices using their regId.
+	 * @param users list of usernames for which we need to retrive the regId.
+	 * @return Key-value paris of userName - regId.
+	 */
+	public List<NotificationTokenDTO> getSelectedRegIds(List<String> users);
 }

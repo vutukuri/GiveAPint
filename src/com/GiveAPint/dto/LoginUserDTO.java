@@ -13,6 +13,11 @@ public class LoginUserDTO {
 	private String token;
 	private String error;
 	
+	public LoginUserDTO()
+	{
+		
+	}
+	
 	public LoginUserDTO(String userName, String passcode)
 	{
 		this.userName = userName;

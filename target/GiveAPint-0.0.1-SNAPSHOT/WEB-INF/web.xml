@@ -23,5 +23,6 @@
     <url-pattern>/respondToRequest</url-pattern>
     <url-pattern>/getRequestsForUser</url-pattern>
     <url-pattern>/getRequestInfo</url-pattern>
+    <url-pattern>/registerNotificationToken</url-pattern>
   </servlet-mapping>
 </web-app>

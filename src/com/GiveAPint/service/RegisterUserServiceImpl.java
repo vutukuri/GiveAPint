@@ -31,6 +31,7 @@ public class RegisterUserServiceImpl implements RegisterUserService{
 			user.setUserID(newUser.getUserId());
 			System.out.println("In service class");
 			System.out.println("new userid:" +newUser.getUserId());
+			user.setError("");
 			//user.setUserID(getMaxId());
 		}catch ( Exception e ){
 			e.printStackTrace();
@@ -44,6 +45,7 @@ public class RegisterUserServiceImpl implements RegisterUserService{
 			userMapper.registerUserStatus(userStatus);
 		}catch ( Exception e ){
 			e.printStackTrace();
+			//TODO need to insert a delete statement which deletes the row added in the previous column.
 			user.setError( e.getCause().toString() );
 			userMapper.deleteLoginUsers(user.getUserID());
 		}

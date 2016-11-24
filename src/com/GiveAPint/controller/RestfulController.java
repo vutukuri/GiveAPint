@@ -1,11 +1,11 @@
 package com.GiveAPint.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,15 +15,18 @@ import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.NotificationTokenDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 import com.GiveAPint.persistence.dbdo.UserDBDO;
+import com.GiveAPint.persistence.mappers.NotificationMapper;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.AcceptorResponseService;
 import com.GiveAPint.service.LoginUserService;
+import com.GiveAPint.service.NotificationsService;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.service.RequestForBloodService;
 import com.GiveAPint.service.UpdateStatusService;
@@ -44,6 +47,8 @@ public class RestfulController {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private NotificationMapper notificationMapper;
 	@Autowired
 	private CreateObjects createSampleObjects;
 	@Autowired
@@ -80,13 +85,13 @@ public class RestfulController {
 	 * 
 	 * @return loginUserDTO to which a token is attached.
 	 */
-	@RequestMapping(value = "/loginUser")
-	public ModelAndView loginUser() {
-		LoginUserDTO user = createSampleObjects.createLoginUser();
+	@RequestMapping(value = "/loginUser", headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody LoginUserDTO loginUser(@ModelAttribute LoginUserDTO user) {
+		//LoginUserDTO user = createSampleObjects.createLoginUser();
 		user = loginService.validateUser(user);
 		System.out.println("Login user status(null if no error):" + user.getError());
 		System.out.println("Token that is generated:" + user.getToken());
-		return new ModelAndView("login");
+		return user;
 	}
 
 	@RequestMapping(value = "/validateTokenOfUser")
@@ -225,6 +230,42 @@ public class RestfulController {
 		acceptorResponseService.getRequestInformation(2, 5, ProjectConstants.dummyToken);
 		System.out.println("Service call returned succesfully");
 		return new ModelAndView("requestInfo");
+	}
+	
+	@RequestMapping(value = "/registerNotificationToken",headers="Accept=application/json", method=RequestMethod.GET)
+	public @ResponseBody NotificationTokenDTO registerNotificationToken(@ModelAttribute NotificationTokenDTO userRegDTO
+			)
+	{
+		System.out.println("Came inside the controller method");
+		//see if there is already a tuple existing of the user, if yes update, else insert.
+		int status = 0;
+		try
+		{
+			String currentRegId = notificationMapper.getNotificationToken(userRegDTO.getUserName());
+			if( currentRegId == null || currentRegId.equals("") )
+			{
+				status = notificationMapper.insertNotificationToken(userRegDTO.getUserName(), userRegDTO.getRegId());
+			}
+			else
+			{
+				status = notificationMapper.updateNotificationToken(userRegDTO.getUserName(), userRegDTO.getRegId());
+				
+			}
+			if( status == 0 )
+			{
+				userRegDTO.setError("Insert/update operation not successful");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			userRegDTO.setError(e.getCause().getMessage());
+			System.out.println("Exception Occurred while updating the notification token"
+					+ "for the user: " +userRegDTO.getUserName());
+		
+		}
+		return userRegDTO;
+
 	}
 
 }

@@ -17,6 +17,7 @@ import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.NotificationTokenDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
+import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UpdateUserStatusDTO;
 import com.GiveAPint.dto.UserDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
@@ -165,25 +166,34 @@ public class RestfulController {
 		// The argument should be "KnnQuery" or "RangeQuery"
 		// RequestBloodDTO request =
 		// createSampleObjects.createRequest("RangeQuery");
-		if (request.getQueryType().equals("RangeQuery")) {
-			request = requestBloodService.rangeQuery(request);
-			if (request.getError() == "" || request.getError() == null) {
-				System.out.println(
-						"Range Query results for the request Id: " + request.getRequestId() + "\n, for the bloodGroup: "
-								+ request.getBloodGroup() + "\n, and for the userId: " + request.getUserId() + " are");
-				for (QueryResultDBDO result : request.getQueryResult()) {
-					System.out.println(
-							"UserId: " + result.getResultantUserId() + ", BloodGroup: " + result.getBloodGroup());
+		try {
+			if (request.getQueryType().equals("RangeQuery")) {
+				request = requestBloodService.rangeQuery(request);
+				if (request.getError() == "" || request.getError() == null) {
+					System.out.println("Range Query results for the request Id: " + request.getRequestId()
+							+ "\n, for the bloodGroup: " + request.getBloodGroup() + "\n, and for the userId: "
+							+ request.getUserId() + " are");
+					for (QueryResultDBDO result : request.getQueryResult()) {
+						System.out.println(
+								"UserId: " + result.getResultantUserId() + ", BloodGroup: " + result.getBloodGroup());
+					}
+				} else {
+					System.out.println("Performing range query resulted in an error:: please check for the details::   "
+							+ request.getError());
 				}
-			} else {
-				System.out.println("Performing range query resulted in an error:: please check for the details::   "
-						+ request.getError());
+			} else if (request.getQueryType().equals("KnnQuery")) {
+				request = requestBloodService.knnQuery(request);
+				System.out.println("Succesfully executed knn");
+				// TODO Print the result set here
 			}
-		} else if (request.getQueryType().equals("KnnQuery")) {
-			request = requestBloodService.knnQuery(request);
-			System.out.println("Succesfully executed knn");
-			// TODO Print the result set here
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setError(e.getCause().getMessage());
 		}
+		// Check if error is set.
+		// No error 'error.equals("")' - Insert results into new table.
+		// Error - return
+
 		return request;
 	}
 
@@ -196,6 +206,7 @@ public class RestfulController {
 		} else {
 			System.out.println("Error occurred while updating the acceptor list");
 		}
+		//Make a call to acceptorService.removeFromResponders, add any additional test cases.
 		return new ModelAndView("acceptedUsers");
 	}
 
@@ -222,13 +233,13 @@ public class RestfulController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getRequestInfo")
-	public ModelAndView getRequestInformation() {
+	public @ResponseBody RequestInfoDTO getRequestInformation() {
 		// This would be a GET call with requestid, userid, and token as
 		// arguments.
 		// requestId, userId, token
-		acceptorResponseService.getRequestInformation(2, 5, ProjectConstants.dummyToken);
+		RequestInfoDTO requestInfo = acceptorResponseService.getRequestInformation(2, 5, ProjectConstants.dummyToken);
 		System.out.println("Service call returned succesfully");
-		return new ModelAndView("requestInfo");
+		return requestInfo;
 	}
 
 	@RequestMapping(value = "/registerNotificationToken", headers = "Accept=application/json", method = RequestMethod.GET)
@@ -264,5 +275,6 @@ public class RestfulController {
 		return userRegDTO;
 
 	}
+	
 
 }

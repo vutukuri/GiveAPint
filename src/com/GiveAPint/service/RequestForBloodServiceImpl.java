@@ -158,4 +158,15 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 		request.setError("");
 		return request;
 	}
+	
+	/**
+	 * Saves data into the responders table. Only thing to check, if result size is 0.
+	 * @param request
+	 * @return
+	 */
+	public RequestBloodDTO saveIntoResponders(RequestBloodDTO request)
+	{
+		return request;
+	}
+	
 }

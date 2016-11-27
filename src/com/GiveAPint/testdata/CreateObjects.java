@@ -140,7 +140,7 @@ public class CreateObjects {
 	public AcceptorDTO createAcceptor()
 	{
 		//(requestId, userId, token, "Accept or Decline")
-		AcceptorDTO acceptor = new AcceptorDTO(2, 1, ProjectConstants.token, "Decline");
+		AcceptorDTO acceptor = new AcceptorDTO(2, 32, "f018gnoumov6", "Decline");
 		return acceptor;
 	}
 

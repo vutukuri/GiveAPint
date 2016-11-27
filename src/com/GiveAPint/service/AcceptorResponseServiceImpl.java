@@ -132,5 +132,16 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 		}
 		return result;
 	}
+	
+	/**
+	 * Delete the corresponding ('requestId', 'responderId') tuple ,responder from the responder table as
+	 * he responded to the request.
+	 * @param responder
+	 * @return
+	 */
+	public AcceptorDTO removeFromResponders(AcceptorDTO responder)
+	{
+		return responder;
+	}
 
 }

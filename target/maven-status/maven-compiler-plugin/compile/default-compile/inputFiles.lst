@@ -23,6 +23,7 @@ M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\service\RequestForBlood
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\dto\AcceptorDTO.java
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\dto\UserDTO.java
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\persistence\mappers\LocationMapper.java
+M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\persistence\mappers\NotificationMapper.java
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\dto\NotificationTokenDTO.java
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\persistence\mappers\AcceptorMapper.java
 M:\JavaEEWorkSpace\GiveAPint\GiveAPint\src\com\GiveAPint\dto\RequestBloodDTO.java

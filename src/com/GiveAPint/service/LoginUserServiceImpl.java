@@ -98,6 +98,12 @@ public class LoginUserServiceImpl implements LoginUserService {
 	@Override
 	public boolean validateToken(String userName, String token)
 	{
+		//userName for the corresponding userid does not exist and thus the request is invalid.
+		if( userName == null || userName.equals("") )
+		{
+			System.out.println("Username is null/empty");
+			return false;
+		}
 		String actualToken = tokenMapper.getToken(userName);
 		if( actualToken == null || actualToken.equals("") )
 		{

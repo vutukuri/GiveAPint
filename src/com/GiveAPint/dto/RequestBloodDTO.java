@@ -38,6 +38,10 @@ public class RequestBloodDTO {
 	private int respondedNumber;
 	private String error;
 
+	public RequestBloodDTO()
+	{
+		this.currentDate = new Date();
+	}
 	// This date is used as an metric to compare the timestamps in order to
 	// retrieve the users who are eligible to donate.
 	public RequestBloodDTO(int userId, String status, int emergencyLevel, String bloodGroup,

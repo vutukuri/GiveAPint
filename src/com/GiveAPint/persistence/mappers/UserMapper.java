@@ -99,5 +99,5 @@ public interface UserMapper {
 	 * @return the username.
 	 */
 	@Select("SELECT \"username\" FROM \"loginusers\" WHERE \"userid\" = #{userId}")
-	public String getUserName(int userId);
+	public String getUserName(@Param("userId") int userId);
 }

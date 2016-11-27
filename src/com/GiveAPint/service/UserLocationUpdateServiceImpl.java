@@ -39,7 +39,7 @@ public class UserLocationUpdateServiceImpl implements UserLocationUpdateService{
 		try {
 			String userName = userMapper.getUserName(newLocation.getUserid());
 			if ( loginService.validateToken(userName, newLocation.getToken()) == false ) {
-				newLocation.setError("Token not matched!");
+				newLocation.setError("Token not valid!");
 				System.out.println("Token passed is not valid");
 				return newLocation;
 			}
@@ -57,6 +57,7 @@ public class UserLocationUpdateServiceImpl implements UserLocationUpdateService{
 			newLocation.setError(e.getCause().toString());
 		}
 		System.out.println("Location is updated succesfully in the service");
+		newLocation.setError("");
 		return newLocation;
 	}
 }

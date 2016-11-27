@@ -23,8 +23,11 @@ public class UserLocationFetchServiceImpl implements UserLocationFetchService{
 		List<LocationDBDO> returnLocations = new ArrayList<>();
 		// TODO Auto-generated method stub
 		try{
+			System.out.println("Came inside the service to fetch the locations");
 			returnLocations = locationMapper.getAllLocations();
 		}catch( Exception e ){
+			e.printStackTrace();
+			System.out.println("Exception occurred while fetching all locations");
 			System.out.println(e.getCause());
 		}
 		return returnLocations;

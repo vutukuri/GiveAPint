@@ -41,7 +41,8 @@
   		</foreach>
   		AND extract(epoch from nextavailabledate) &#60; extract(epoch from #{currentDate} :: Date) 
   		AND not "userid" = #{userId} 
-  		AND ST_DWithin("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326), #{rangeVal});
+  		AND ST_DWithin("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326), #{rangeVal})
+  		ORDER BY lastlocation &#60;-> st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326);
 	</select>
 			
 </mapper>

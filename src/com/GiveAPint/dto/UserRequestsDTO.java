@@ -16,6 +16,11 @@ public class UserRequestsDTO {
 	private List<UserRequestsDBDO> requests;
 	private int userId;
 	private String error;
+	
+	public UserRequestsDTO()
+	{
+		
+	}
 
 	public List<UserRequestsDBDO> getRequests()
 	{

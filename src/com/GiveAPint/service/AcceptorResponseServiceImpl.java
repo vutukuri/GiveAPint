@@ -65,23 +65,34 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	@Override
 	public UserRequestsDTO getUserRequests(int userId, String token) {
 		// TODO Auto-generated method stub
-		String userName = userMapper.getUserName(userId);
 		UserRequestsDTO requests = new UserRequestsDTO();
-		requests.setUserId(userId);
-		if( loginUserService.validateToken(userName, token) )
+		try
 		{
-			List<UserRequestsDBDO> results = acceptorMapper.getAllRequests(userId);
-			requests.setRequests(results);
-			System.out.println("The requests which are made by the user:" +userId);
-			for(UserRequestsDBDO request : results )
+			String userName = userMapper.getUserName(userId);
+			requests.setUserId(userId);
+			if( loginUserService.validateToken(userName, token) )
 			{
-				System.out.println("Request id:" +request.getRequestId() + ", timestamp" + request.getTimestamp());
+				List<UserRequestsDBDO> results = acceptorMapper.getAllRequests(userId);
+				requests.setRequests(results);
+				System.out.println("The requests which are made by the user:" +userId);
+				for(UserRequestsDBDO request : results )
+				{
+					System.out.println("Request id:" +request.getRequestId() + ", timestamp" + request.getTimestamp());
+				}
+			}
+			else
+			{
+				requests.setError("Token Invalid, please verify.");
+				return requests;
 			}
 		}
-		else
+		catch(Exception e)
 		{
-			requests.setError("Token Invalid, please verify.");
+			e.printStackTrace();
+			requests.setError(e.getCause().getMessage());
+			return requests;
 		}
+		requests.setError("");
 		return requests;
 	}
 

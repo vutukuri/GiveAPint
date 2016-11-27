@@ -4,6 +4,7 @@ com\GiveAPint\service\UpdateStatusServiceImpl.class
 com\GiveAPint\dto\UserDTO.class
 com\GiveAPint\persistence\dbdo\UserStatusDBDO.class
 com\GiveAPint\service\AcceptorResponseServiceImpl.class
+com\GiveAPint\persistence\mappers\NotificationMapper.class
 com\GiveAPint\service\UserLocationUpdateService.class
 com\GiveAPint\service\LoginUserService.class
 com\GiveAPint\constants\ProjectConstants.class
@@ -22,6 +23,10 @@ com\GiveAPint\persistence\dbdo\QueryResultDBDO.class
 com\GiveAPint\persistence\mappers\TokenMapper.class
 com\GiveAPint\dto\RequestBloodDTO.class
 com\GiveAPint\dto\UserRequestsDTO.class
+com\GiveAPint\persistence\mappers\RequestMapper.xml
+com\GiveAPint\persistence\mappers\RequestInfoMapper.xml
+com\GiveAPint\persistence\mappers\AcceptorMapper.xml
+com\GiveAPint\persistence\mappers\TokenMapper.xml
 com\GiveAPint\service\RequestForBloodService.class
 com\GiveAPint\persistence\dbdo\LocationDBDO.class
 com\GiveAPint\persistence\mappers\LocationMapper.class

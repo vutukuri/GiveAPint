@@ -40,6 +40,9 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	@Override
 	public AcceptorDTO saveUserResponse(AcceptorDTO acceptor) {
 		// TODO Auto-generated method stub
+		System.out.println("Came inside the service for saving the response");
+		try
+		{
 		String userName = userMapper.getUserName(acceptor.getUserId());
 		if( loginUserService.validateToken(userName, acceptor.getToken()) )
 		{
@@ -54,14 +57,20 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 			{
 				System.out.println("User do not want to donate the blood for this request:" + acceptor.getResponse());
 			}
-			//2) update the request status and the number of respondedusers in requests table.
-			//3) insert a tuple if the response is "Accept" or else just ignore.
-			//4) Return the DTO with error message set, if any.
 		}
 		else
 		{
 			acceptor.setError("Token corresponding to user is not valid, please verify.");
+			return acceptor;
 		}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			acceptor.setError(e.getCause().getMessage());
+			return acceptor;
+		}
+		acceptor.setError("");
 		return acceptor;
 	}
 
@@ -149,7 +158,7 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	 */
 	public AcceptorDTO removeFromResponders(AcceptorDTO responder)
 	{
-		if (responder.getError().equals("") == false) {
+		if (responder.getError() == null || responder.getError().equals("")) {
 			try {
 				acceptorMapper.deleteAwaitResponse(responder);
 			} catch (Exception e) {

@@ -140,7 +140,7 @@ public class CreateObjects {
 	public AcceptorDTO createAcceptor()
 	{
 		//(requestId, userId, token, "Accept or Decline")
-		AcceptorDTO acceptor = new AcceptorDTO(2, 32, "f018gnoumov6", "Decline");
+		AcceptorDTO acceptor = new AcceptorDTO(32, 5, "dummyTokenForDD", "Accept");
 		return acceptor;
 	}
 

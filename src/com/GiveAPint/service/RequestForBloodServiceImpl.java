@@ -121,7 +121,7 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 				LocationDBDO userCurrentLocation = locationMapper.getUserLocation(request.getUserId());
 				request.setLongCoord(userCurrentLocation.getLongCoord());
 				request.setLatCoord(userCurrentLocation.getLatCoord());
-				System.out.println("Current date received:" + request.getCurrentDate());
+				System.out.println("Current date and timestamp received:" + request.getCurrentDate() + " "+ request.getTimeStamp());
 				System.out.println(
 						"The location of the user passed:" + request.getLongCoord() + " " + request.getLatCoord());
 				List<QueryResultDBDO> results = requestMapper.rangeQuery(request);

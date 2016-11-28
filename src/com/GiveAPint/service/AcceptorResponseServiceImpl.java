@@ -97,39 +97,44 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	}
 
 	@Override
-	public RequestInfoDTO getRequestInformation(int requestId, int userId, String token)
-	{
+	public RequestInfoDTO getRequestInformation(int requestId, int userId, String token) {
 		String userName = userMapper.getUserName(userId);
 		RequestInfoDTO result = new RequestInfoDTO();
-		if( loginUserService.validateToken(userName, token) )
-		{
-			result = requestInfoMapper.getRequestData(requestId);
-			System.out.println("Basic request data:" +result.getRequestId() + " numb:" +result.getTotalNumber()
-			+ " resp:" +result.getRespondedNumber() + " requesterid: " +result.getRequesterId());
-			List<Integer> acceptors = requestInfoMapper.getAllAcceptors(requestId);
-			if( acceptors.size() == 0 )
-			{
-				//If there are no users who accepted the request.
-				//We just set the message and return the DTO. This message can be used to confirm
-				//the same.
-				result.setMessage("There are no users who accepted the requested,"
-						+ " Please check back in some time");
+		try {
+			if (loginUserService.validateToken(userName, token)) {
+				result = requestInfoMapper.getRequestData(requestId);
+				System.out.println("Basic request data:" + result.getRequestId() + " numb:" + result.getTotalNumber()
+						+ " resp:" + result.getRespondedNumber() + " requesterid: " + result.getRequesterId());
+				List<Integer> acceptors = requestInfoMapper.getAllAcceptors(requestId);
+				if (acceptors.size() == 0) {
+					// If there are no users who accepted the request.
+					// We just set the message and return the DTO. This message
+					// can be used to confirm
+					// the same.
+					result.setMessage(
+							"There are no users who accepted the requested," + " Please check back in some time");
+					result.setError("");
+					return result;
+				}
+				System.out.println("Got the list of acceptors, size:" + acceptors.size());
+				List<DonorDBDO> donors = requestInfoMapper.getDonorsInfo(acceptors, userId);
+				for (DonorDBDO donor : donors) {
+					System.out.println("Donor Info: userId: " + donor.getUserId() + " firstName: "
+							+ donor.getFirstName() + "distance: " + donor.getDistanceInMiles() + " phonenumber:"
+							+ donor.getPhoneNumber() + "age " + donor.getAge() + "\n");
+				}
+				result.setAcceptedUsers(donors);
+
+			} else {
+				result.setError("Token not valid, please verify.");
 				return result;
 			}
-			System.out.println("Got the list of acceptors, size:" +acceptors.size());
-			List<DonorDBDO> donors = requestInfoMapper.getDonorsInfo(acceptors, userId);
-			for (DonorDBDO donor : donors) {
-				System.out.println("Donor Info: userId: " + donor.getUserId() 
-				+ " firstName: " + donor.getFirstName() + "distance: " +donor.getDistanceInMiles()
-				+ " phonenumber:" + donor.getPhoneNumber() + "age " +donor.getAge() + "\n");
-			}
-			result.setAcceptedUsers(donors);
-			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setError(e.getCause().getMessage());
+			return result;
 		}
-		else
-		{
-			result.setError("Token not valid, please verify.");
-		}
+		result.setError("");
 		return result;
 	}
 	

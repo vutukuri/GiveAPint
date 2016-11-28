@@ -232,13 +232,25 @@ public class RestfulController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/getRequestInfo")
-	public @ResponseBody RequestInfoDTO getRequestInformation() {
+	@RequestMapping(value = "/getRequestInfo", headers = "Accept=application/json", method = RequestMethod.GET)
+	public @ResponseBody RequestInfoDTO getRequestInformation(@RequestParam("requestId") int requestId,
+			@RequestParam("userId") int userId, @RequestParam("token") String token)
+	{
 		// This would be a GET call with requestid, userid, and token as
 		// arguments.
 		// requestId, userId, token
-		RequestInfoDTO requestInfo = acceptorResponseService.getRequestInformation(2, 5, ProjectConstants.dummyToken);
-		System.out.println("Service call returned succesfully");
+		RequestInfoDTO requestInfo = new RequestInfoDTO();
+		try
+		{
+		requestInfo = acceptorResponseService.getRequestInformation(requestId, userId, token);
+		System.out.println("Service call returned succesfully fetching the requestInfo");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			requestInfo.setError(e.getCause().getMessage());
+			return requestInfo;
+		}
 		return requestInfo;
 	}
 

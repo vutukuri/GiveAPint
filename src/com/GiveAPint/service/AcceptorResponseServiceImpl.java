@@ -1,13 +1,16 @@
 package com.GiveAPint.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
+import com.GiveAPint.persistence.dbdo.AwaitResultDBDO;
 import com.GiveAPint.persistence.dbdo.DonorDBDO;
 import com.GiveAPint.persistence.dbdo.UserRequestsDBDO;
 import com.GiveAPint.persistence.mappers.AcceptorMapper;
@@ -141,6 +144,72 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	 */
 	public AcceptorDTO removeFromResponders(AcceptorDTO responder)
 	{
+		if (responder.getError().equals("") == false) {
+			try {
+				acceptorMapper.deleteAwaitResponse(responder);
+			} catch (Exception e) {
+				responder.setError(e.getMessage());
+				System.out.println("Error occurred while removing from awaitresponse table:::\n\t\t\t" + e.getMessage());
+			}
+		}	
+		
+		return responder;
+	}
+	
+	
+	public AwaitResultDTO fetchAwaitList(AwaitResultDTO responder) {
+		
+		String userName = userMapper.getUserName(responder.getResponderId());
+		
+		if( loginUserService.validateToken(userName, responder.getToken()) )
+		{
+			List<AwaitResultDBDO> resultList = new ArrayList<>();
+			try {
+				resultList = acceptorMapper.getAwaitIds(responder.getResponderId());
+			} catch(Exception e) {
+				responder.setError(e.getMessage());
+				System.out.println(e.getMessage() + "getAwaitIds query");
+				return responder;
+			}
+				
+			AwaitResultDBDO resultDBDO = new AwaitResultDBDO();
+			for(AwaitResultDBDO result : resultList){
+				try {
+					resultDBDO = acceptorMapper.getBgEmer(result.getRequestId());
+					result.setEmerLevel(resultDBDO.getEmerLevel());
+					result.setRequestedBG(resultDBDO.getRequestedBG());
+				} catch(Exception e) {
+					responder.setError(e.getMessage());
+					System.out.println(e.getMessage() + "getBgEmer query");
+					return responder;
+				}
+				
+				try {
+					resultDBDO = acceptorMapper.getNames(result.getRequestorId());
+					result.setRequestorFName(resultDBDO.getRequestorFName());
+					result.setRequestorLName(resultDBDO.getRequestorLName());
+				} catch(Exception e) {
+					responder.setError(e.getMessage());
+					System.out.println(e.getMessage() + "getNames query");
+					return responder;
+				}
+				
+				try {
+					resultDBDO = acceptorMapper.getDistance(result.getRequestorId(), responder.getResponderId());
+					result.setDistance(resultDBDO.getDistance());
+				} catch(Exception e) {
+					responder.setError(e.getMessage());
+					System.out.println(e.getMessage()+"getDistance query");
+					return responder;
+				}
+			}
+			responder.setResultList(resultList);
+		}
+		else
+		{
+			responder.setError("Token not valid, please verify.");
+		}
+		
 		return responder;
 	}
 

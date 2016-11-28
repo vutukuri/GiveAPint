@@ -1,6 +1,7 @@
 package com.GiveAPint.service;
 
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
 
@@ -35,5 +36,14 @@ public interface AcceptorResponseService {
 	 * @return RequestInfoDTO which contains the list of accepted users along with their information.
 	 */
 	public RequestInfoDTO getRequestInformation(int requesId, int userId, String token);
-
+	
+	/*
+	 * Removes responded users from the awaitresponses table. 
+	 */
+	public AcceptorDTO removeFromResponders(AcceptorDTO responder);
+	
+	/*
+	 * Fetches all the requests, and their details that are awaiting responder's response.
+	 */
+	public AwaitResultDTO fetchAwaitList(AwaitResultDTO responder);
 }

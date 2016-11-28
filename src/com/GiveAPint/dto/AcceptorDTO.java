@@ -15,6 +15,10 @@ public class AcceptorDTO {
 	private String response;
 	private String error;
 	
+	public AcceptorDTO() {
+		
+	}
+	
 	public AcceptorDTO(int requestId, int userId, String token, String response)
 	{
 		this.requestId = requestId;

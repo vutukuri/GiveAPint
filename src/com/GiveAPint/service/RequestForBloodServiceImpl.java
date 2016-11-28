@@ -9,11 +9,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.GiveAPint.dto.AwaitResponseDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
 
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.persistence.dbdo.LocationDBDO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
+import com.GiveAPint.persistence.mappers.AcceptorMapper;
 import com.GiveAPint.persistence.mappers.LocationMapper;
 import com.GiveAPint.persistence.mappers.RequestMapper;
 
@@ -28,6 +30,8 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 	private RequestMapper requestMapper;
 	@Autowired
 	private LocationMapper locationMapper;
+	@Autowired
+	private AcceptorMapper acceptorMapper;
 
 	private static Map<String, List<String>> bloodMappings;
 
@@ -166,6 +170,23 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 	 */
 	public RequestBloodDTO saveIntoResponders(RequestBloodDTO request)
 	{
+		if (request.getQueryResult().isEmpty() == false) {
+			List<QueryResultDBDO> queryResults = request.getQueryResult();
+			AwaitResponseDTO awaitResponse = new AwaitResponseDTO();
+			awaitResponse.setAwaitRequestId(request.getRequestId());
+			awaitResponse.setAwaitRequestorId(request.getUserId());
+			for (QueryResultDBDO result : queryResults) {
+				awaitResponse.setAwaitResponderId(result.getResultantUserId());
+				try {
+					acceptorMapper.insertAwaitResponse(awaitResponse);
+				} catch (Exception e) {
+					request.setError(e.getMessage());
+					System.out.println("Error occurred while inserting into awaitresponses\n\t\t\t" + e.getMessage());
+					break;
+				}
+			}
+		}
+		
 		return request;
 	}
 	

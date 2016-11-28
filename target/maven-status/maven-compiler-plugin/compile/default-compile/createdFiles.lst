@@ -23,11 +23,9 @@ com\GiveAPint\persistence\dbdo\QueryResultDBDO.class
 com\GiveAPint\persistence\mappers\TokenMapper.class
 com\GiveAPint\dto\RequestBloodDTO.class
 com\GiveAPint\dto\UserRequestsDTO.class
-com\GiveAPint\persistence\mappers\RequestMapper.xml
-com\GiveAPint\persistence\mappers\RequestInfoMapper.xml
-com\GiveAPint\persistence\mappers\AcceptorMapper.xml
-com\GiveAPint\persistence\mappers\TokenMapper.xml
 com\GiveAPint\service\RequestForBloodService.class
+com\GiveAPint\dto\AwaitResponseDTO.class
+com\GiveAPint\dto\AwaitResultDTO.class
 com\GiveAPint\persistence\dbdo\LocationDBDO.class
 com\GiveAPint\persistence\mappers\LocationMapper.class
 com\GiveAPint\persistence\dbdo\DonorDBDO.class
@@ -36,6 +34,7 @@ com\GiveAPint\dto\LoginUserDTO.class
 com\GiveAPint\persistence\mappers\UserMapper.class
 com\GiveAPint\dto\RequestInfoDTO.class
 com\GiveAPint\testdata\CreateObjects.class
+com\GiveAPint\persistence\dbdo\AwaitResultDBDO.class
 com\GiveAPint\dto\UpdateUserStatusDTO.class
 com\GiveAPint\service\UserLocationFetchServiceImpl.class
 com\GiveAPint\service\UserLocationFetchService.class

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.AcceptorDTO;
+import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.NotificationTokenDTO;
@@ -193,7 +194,10 @@ public class RestfulController {
 		// Check if error is set.
 		// No error 'error.equals("")' - Insert results into new table.
 		// Error - return
-
+		if (request.getError().equals("") == true) {
+			request = requestBloodService.saveIntoResponders(request);
+		}
+		
 		return request;
 	}
 
@@ -203,6 +207,14 @@ public class RestfulController {
 		acceptor = acceptorResponseService.saveUserResponse(acceptor);
 		if (acceptor.getError() == null || acceptor.getError().equals("")) {
 			System.out.println("Acceptor response saved succesfully.");
+			acceptor = acceptorResponseService.removeFromResponders(acceptor);
+			if (acceptor.getError() != null && acceptor.getError().equals("") == false) {
+				System.out.println("Error occurred while removing entry from awaitresponse table");
+			}
+			else {
+				System.out.println("Corresponding entry removed successfully from awaitresponse table");
+			}
+			
 		} else {
 			System.out.println("Error occurred while updating the acceptor list");
 		}
@@ -275,6 +287,28 @@ public class RestfulController {
 		return userRegDTO;
 
 	}
+	
+	@RequestMapping(value = "/generateAwaitResults", headers = "Accept=application/json", method = RequestMethod.GET)
+	public @ResponseBody AwaitResultDTO generateAwaitResults ( @RequestParam("responderId") int responderId,
+			@RequestParam("token") String token ) {
+		
+		AwaitResultDTO result = new AwaitResultDTO();
+		result.setResponderId(responderId);
+		result.setToken(token);
+		//Service Call which should return DTO
+		
+		result = acceptorResponseService.fetchAwaitList(result);
+		if(result == null){
+			System.out.println("I am null, save me");
+			return result;
+		}
+		if (result.getError().equals("") == false) {
+			System.out.println("Error while fetching response awaiting requests list::\n\t\t\t" + result.getError());
+		}
+		
+		return result;
+	}
+	
 	
 
 }

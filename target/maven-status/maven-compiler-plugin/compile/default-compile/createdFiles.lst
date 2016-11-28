@@ -16,6 +16,7 @@ com\GiveAPint\service\RequestForBloodServiceImpl.class
 com\GiveAPint\dto\LocationDTO.class
 com\GiveAPint\persistence\mappers\RequestMapper.class
 com\GiveAPint\dto\NotificationTokenDTO.class
+com\GiveAPint\dto\NotificationDetailsDTO.class
 com\GiveAPint\service\UserLocationUpdateServiceImpl.class
 com\GiveAPint\service\UpdateStatusService.class
 com\GiveAPint\service\NotificationsService.class

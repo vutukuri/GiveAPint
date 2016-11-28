@@ -25,5 +25,6 @@
     <url-pattern>/getRequestInfo</url-pattern>
     <url-pattern>/registerNotificationToken</url-pattern>
     <url-pattern>/generateAwaitResults</url-pattern>
+    <url-pattern>/sendUserNames</url-pattern>
   </servlet-mapping>
 </web-app>

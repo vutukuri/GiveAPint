@@ -1,7 +1,10 @@
 package com.GiveAPint.testdata;
 
 import org.postgis.Point;
+
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.text.ParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.UserDTO;
+import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.LocationDTO;
@@ -143,5 +147,14 @@ public class CreateObjects {
 		AcceptorDTO acceptor = new AcceptorDTO(32, 5, "dummyTokenForDD", "Accept");
 		return acceptor;
 	}
+	
+	public List<QueryResultDBDO> createListOfUsers()
+	{
+		QueryResultDBDO item1 = new QueryResultDBDO(32, "AB+", 2.5, 124242342);
+		QueryResultDBDO item2 = new QueryResultDBDO(33, "AB+", 2.5, 124242342);
+		QueryResultDBDO item3 = new QueryResultDBDO(3, "AB+", 2.5, 124242342);
+		List<QueryResultDBDO> result = Arrays.asList(item1, item2, item3);
+		return result;
+	} 
 
 }

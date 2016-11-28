@@ -1,13 +1,23 @@
 package com.GiveAPint.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.GiveAPint.dto.NotificationDetailsDTO;
+
+import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
+import com.GiveAPint.persistence.mappers.NotificationMapper;
+import com.GiveAPint.persistence.mappers.RequestMapper;
+import com.GiveAPint.persistence.mappers.UserMapper;
 import com.amazonaws.util.json.JSONException;
 import com.amazonaws.util.json.JSONObject;
 
@@ -17,9 +27,61 @@ import com.amazonaws.util.json.JSONObject;
  * @author Manu
  *
  */
+@Service("NotificationsService")
 public class NotificationsService {
 	
-	public void sendAndroidNotification() throws IOException {
+	@Autowired
+	private RequestMapper requestMapper;
+	@Autowired
+	private UserMapper userMapper;
+	
+	public List<NotificationDetailsDTO> notificationWrapperForRequest(List<QueryResultDBDO> listOfUsers, String bloodType,
+			int requesterId) 
+	{
+		System.out.println("Came inside this notification wrapper.");
+		List<NotificationDetailsDTO> usernameList = new ArrayList<>();
+		//List<QueryResultDBDO> listOfUsers = result.getQueryResult();
+		//The result as argument contains the resultant users who are returned as output to the request queries.
+		//this function call is triggered only when there is no error set in result DTO and also if the number of 
+		//resultant users are more than zero.
+		try
+		{
+		System.out.println("List size retieved is: " +listOfUsers.size());
+		usernameList = requestMapper.getUserNamesForUserIds(listOfUsers);
+		System.out.println("Output from the request Mapper is: " +usernameList.toString());
+		usernameList = requestMapper.getRegIdsForUsers(usernameList);
+		System.out.println("Result returned from the second mapper is : "+usernameList.toString());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			
+		}
+		try
+		{
+			//Need to get the username for the userid and the request blood type.
+			String username = userMapper.getFirstName(requesterId);
+			String message = username + " requested for blood of type " +bloodType;
+			
+		for(NotificationDetailsDTO notification : usernameList )
+		{
+			//check if the regid is not null nor empty.
+			if( !(notification.getRegId() == null || notification.getRegId().equals("")) )
+			{
+				System.out.println("About to send notification for the user: " +notification.getUserName());
+				sendAndroidNotification(message, notification.getRegId());
+			}
+		}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			System.out.println(e.getCause().getMessage());
+		}
+		//Send message and regid to whom we are sending.
+		return usernameList;
+	}
+	
+	public void sendAndroidNotification(String messageToUser, String regId) throws IOException {
 		System.out.println("Inside the notification service");
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost("https://fcm.googleapis.com/fcm/send");
@@ -31,13 +93,13 @@ public class NotificationsService {
 		System.out.println("Initial parameters are set");
 		JSONObject message = new JSONObject();
 		try {
-			message.put("to", "cBOnm_9y6YY:APA91bEpwh8C5eqqF8L3MwIx91S7sTNaF_DTeuAJ2bPWy-o0v1fdKx7g7x5GXh0_OENI-XlN-AvcWEfzLU1vFRybXzp28zeAlhGVkHRD5_9vlX7P0xU11gOnANgbNLDo8zOT6f-wIJZg");
+			message.put("to", regId);
 			message.put("priority", "high");
 			JSONObject notification = new JSONObject();
 			//Argument
 			notification.put("title", "Blood Connection");
 			//Argument
-			notification.put("body", "Notification from the service");
+			notification.put("body", messageToUser);
 			message.put("notification", notification);
 			System.out.println("Json data is ready");
 		}

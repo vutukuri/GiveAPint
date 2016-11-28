@@ -3,9 +3,11 @@ package com.GiveAPint.persistence.mappers;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 
+import com.GiveAPint.dto.NotificationDetailsDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.persistence.dbdo.QueryResultDBDO;
 
@@ -27,4 +29,16 @@ public interface RequestMapper {
 	public List<QueryResultDBDO> getKNearestNeighbors(RequestBloodDTO request);
 	
 	public List<QueryResultDBDO> rangeQuery(RequestBloodDTO request);
+	
+	
+	/**
+	 * Returns list of('username', 'userid') for the give list of userid's in the arguments
+	 * @param listOfUsers
+	 * @return
+	 */
+	public List<NotificationDetailsDTO> getUserNamesForUserIds(@Param("listOfUsers")
+												List<QueryResultDBDO> listOfUsers);
+	
+	
+	public List<NotificationDetailsDTO> getRegIdsForUsers(@Param("listOfUsers") List<NotificationDetailsDTO> listOfUsers);
 }

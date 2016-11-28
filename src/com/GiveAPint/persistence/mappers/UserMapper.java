@@ -100,4 +100,8 @@ public interface UserMapper {
 	 */
 	@Select("SELECT \"username\" FROM \"loginusers\" WHERE \"userid\" = #{userId}")
 	public String getUserName(@Param("userId") int userId);
+	
+	@Select("SELECT \"firstname\" FROM \"loginusers\" WHERE \"userid\" = #{userId}")
+	public String getFirstName(@Param("userId") int userId);
+	
 }

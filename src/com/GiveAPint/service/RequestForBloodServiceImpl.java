@@ -32,6 +32,8 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 	private LocationMapper locationMapper;
 	@Autowired
 	private AcceptorMapper acceptorMapper;
+	@Autowired
+	private NotificationsService notificationsService;
 
 	private static Map<String, List<String>> bloodMappings;
 
@@ -107,6 +109,8 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 			request.setError(e.getCause().getMessage());
 			return request;
 		}
+		notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
+				request.getUserId());
 		request.setError("");
 		return request;
 	}

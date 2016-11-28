@@ -34,5 +34,7 @@ public interface NotificationMapper {
 	 */
 	@Insert("INSERT INTO \"notifications\"(\"username\", \"regid\") VALUES(#{userName}, #{regId})")
 	public int insertNotificationToken(@Param("userName") String userName, @Param("regId") String regId);
+	
+	
 
 }

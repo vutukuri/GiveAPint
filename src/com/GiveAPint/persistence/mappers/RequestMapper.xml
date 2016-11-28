@@ -10,6 +10,13 @@
 		<result column="userid" property="resultantUserId" />
 		<result column="bloodgroup" property="bloodGroup" />
 	</resultMap>
+	
+	<resultMap type="com.GiveAPint.dto.NotificationDetailsDTO"
+		id="notificationHelperMapper">
+		<result column="userid" property="userId" />
+		<result column="username" property="userName" />
+		<result column="regid" property="regId"/>
+	</resultMap>
 
 	<select id="getKNearestNeighbors" parameterType="map"
 		resultMap="GeoQueryResultMap">
@@ -43,6 +50,27 @@
   		AND not "userid" = #{userId} 
   		AND ST_DWithin("lastlocation", st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326), #{rangeVal})
   		ORDER BY lastlocation &#60;-> st_setsrid(st_makepoint(#{longCoord},#{latCoord}),4326);
+	</select>
+	
+		<select id="getUserNamesForUserIds" parameterType="map" resultMap="notificationHelperMapper">
+		SELECT "userid",
+		"username"
+		FROM loginusers WHERE userid IN
+		<foreach item="item" index="index" collection="listOfUsers"
+      	open="(" separator="," close=")">
+        #{item.resultantUserId}
+  		</foreach>
+	</select>
+
+		<select id="getRegIdsForUsers" parameterType="map" resultMap="notificationHelperMapper">
+		SELECT
+		"username",
+		"regid"
+		FROM notifications WHERE username IN
+		<foreach item="item" index="index" collection="listOfUsers"
+      	open="(" separator="," close=")">
+        #{item.userName}
+  		</foreach>
 	</select>
 			
 </mapper>

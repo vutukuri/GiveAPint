@@ -16,6 +16,7 @@ import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
+import com.GiveAPint.dto.NotificationDetailsDTO;
 import com.GiveAPint.dto.NotificationTokenDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
@@ -29,6 +30,7 @@ import com.GiveAPint.persistence.mappers.NotificationMapper;
 import com.GiveAPint.persistence.mappers.UserMapper;
 import com.GiveAPint.service.AcceptorResponseService;
 import com.GiveAPint.service.LoginUserService;
+import com.GiveAPint.service.NotificationsService;
 import com.GiveAPint.service.RegisterUserService;
 import com.GiveAPint.service.RequestForBloodService;
 import com.GiveAPint.service.UpdateStatusService;
@@ -67,6 +69,9 @@ public class RestfulController {
 	private RequestForBloodService requestBloodService;
 	@Autowired
 	private AcceptorResponseService acceptorResponseService;
+	
+	@Autowired
+	private NotificationsService notificationWrapper;
 
 	/**
 	 * Register an user.
@@ -338,6 +343,17 @@ public class RestfulController {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping(value="/sendUserNames")
+	public @ResponseBody List<NotificationDetailsDTO> getUserNamesForUserids()
+	{
+		//create a sample List<QueryResultDBDO>
+		System.out.println("Came inside the controller");
+		List<QueryResultDBDO> list = createSampleObjects.createListOfUsers();
+		List<NotificationDetailsDTO> result = notificationWrapper.notificationWrapperForRequest(list, "AB+", 3);
+		return result;
+		
 	}
 	
 	

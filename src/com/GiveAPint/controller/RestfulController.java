@@ -201,25 +201,44 @@ public class RestfulController {
 		return request;
 	}
 
-	@RequestMapping(value = "/respondToRequest")
-	public ModelAndView respondToRequest() {
-		AcceptorDTO acceptor = createSampleObjects.createAcceptor();
-		acceptor = acceptorResponseService.saveUserResponse(acceptor);
-		if (acceptor.getError() == null || acceptor.getError().equals("")) {
-			System.out.println("Acceptor response saved succesfully.");
-			acceptor = acceptorResponseService.removeFromResponders(acceptor);
-			if (acceptor.getError() != null && acceptor.getError().equals("") == false) {
-				System.out.println("Error occurred while removing entry from awaitresponse table");
+	@RequestMapping(value = "/respondToRequest", headers = "Accept=application/json", method = RequestMethod.GET)
+	public @ResponseBody AcceptorDTO respondToRequest(@ModelAttribute AcceptorDTO acceptor) {
+		// AcceptorDTO acceptor = createSampleObjects.createAcceptor();
+		try {
+			System.out.println("Controller for responding triggered: received credentials are: " +acceptor.getRequestId()+ 
+					" " + acceptor.getResponse() + " " + acceptor.getToken() + " "+ acceptor.getUserId());
+			acceptor = acceptorResponseService.saveUserResponse(acceptor);
+			if (acceptor.getError() == null || acceptor.getError().equals(""))
+			{
+				System.out.println("Acceptor response saved succesfully.");
+				acceptor = acceptorResponseService.removeFromResponders(acceptor);
+				if (acceptor.getError() != null && acceptor.getError().equals("") == false) 
+				{
+					System.out.println("Error occurred while removing entry from awaitresponse table");
+					return acceptor;
+				} 
+				else 
+				{
+					System.out.println("Corresponding entry removed successfully from awaitresponse table");
+				}
+
 			}
-			else {
-				System.out.println("Corresponding entry removed successfully from awaitresponse table");
+			else
+			{
+				System.out.println("Error occurred while saving the user response");
+				return acceptor;
 			}
-			
-		} else {
-			System.out.println("Error occurred while updating the acceptor list");
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			acceptor.setError(e.getCause().getMessage());
+			return acceptor;
 		}
-		//Make a call to acceptorService.removeFromResponders, add any additional test cases.
-		return new ModelAndView("acceptedUsers");
+		// Make a call to acceptorService.removeFromResponders, add any
+		// additional test cases.
+		acceptor.setError("");
+		return acceptor;
 	}
 
 	@RequestMapping(value = "/getRequestsForUser", method = RequestMethod.GET)

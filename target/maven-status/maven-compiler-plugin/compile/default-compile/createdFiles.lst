@@ -24,6 +24,7 @@ com\GiveAPint\persistence\dbdo\QueryResultDBDO.class
 com\GiveAPint\persistence\mappers\TokenMapper.class
 com\GiveAPint\dto\RequestBloodDTO.class
 com\GiveAPint\dto\UserRequestsDTO.class
+com\GiveAPint\dto\GetRequestsForUserDTO.class
 com\GiveAPint\service\RequestForBloodService.class
 com\GiveAPint\dto\AwaitResponseDTO.class
 com\GiveAPint\dto\AwaitResultDTO.class

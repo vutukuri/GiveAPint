@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.AwaitResultDTO;
+import com.GiveAPint.dto.GetRequestsForUserDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
 import com.GiveAPint.dto.NotificationDetailsDTO;
@@ -245,11 +246,12 @@ public class RestfulController {
 		acceptor.setError("");
 		return acceptor;
 	}
-
+	
 	@RequestMapping(value = "/getRequestsForUser", method = RequestMethod.GET)
-	public @ResponseBody UserRequestsDTO getRequestsMadeByUser(@RequestParam("userId") int userId,
-			@RequestParam("token") String token) {
+	public @ResponseBody UserRequestsDTO getRequestsMadeByUser(@ModelAttribute GetRequestsForUserDTO userInfo) {
 		UserRequestsDTO result = new UserRequestsDTO();
+		int userId = userInfo.getUserId();
+		String token = userInfo.getToken();
 		try
 		{
 			System.out.println("Token received for the requests data: "+token);

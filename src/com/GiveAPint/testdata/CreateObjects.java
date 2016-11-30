@@ -148,13 +148,5 @@ public class CreateObjects {
 		return acceptor;
 	}
 	
-	public List<QueryResultDBDO> createListOfUsers()
-	{
-		QueryResultDBDO item1 = new QueryResultDBDO(32, "AB+", 2.5, 124242342);
-		QueryResultDBDO item2 = new QueryResultDBDO(33, "AB+", 2.5, 124242342);
-		QueryResultDBDO item3 = new QueryResultDBDO(3, "AB+", 2.5, 124242342);
-		List<QueryResultDBDO> result = Arrays.asList(item1, item2, item3);
-		return result;
-	} 
 
 }

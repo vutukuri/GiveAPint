@@ -109,8 +109,8 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 			request.setError(e.getCause().getMessage());
 			return request;
 		}
-		notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
-				request.getUserId());
+		//notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
+				//request.getUserId());
 		request.setError("");
 		return request;
 	}

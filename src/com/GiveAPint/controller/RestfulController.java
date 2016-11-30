@@ -345,7 +345,12 @@ public class RestfulController {
 		return result;
 	}
 	
-	@RequestMapping(value="/sendUserNames")
+	/**
+	 * This method can be triggered to see if we can make use of the notification service.
+	 * It is replacement for the function call that will be triggered after the user request or user response api calls.
+	 * 
+	 */
+	/**@RequestMapping(value="/sendUserNames")
 	public @ResponseBody List<NotificationDetailsDTO> getUserNamesForUserids()
 	{
 		//create a sample List<QueryResultDBDO>
@@ -354,7 +359,7 @@ public class RestfulController {
 		List<NotificationDetailsDTO> result = notificationWrapper.notificationWrapperForRequest(list, "AB+", 3);
 		return result;
 		
-	}
+	}**/
 	
 	
 

@@ -4,20 +4,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.GiveAPint.constants.ProjectConstants;
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.AwaitResultDTO;
+import com.GiveAPint.dto.AwaitResultsMapDTO;
+import com.GiveAPint.dto.GetRequestInformationDTO;
 import com.GiveAPint.dto.GetRequestsForUserDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
@@ -72,7 +71,7 @@ public class RestfulController {
 	private UserLocationUpdateService locationUpdateService;
 	@Autowired
 	private RequestForBloodService requestBloodService;
-	@Resource
+	@Autowired
 	private AcceptorResponseService acceptorResponseService;
 	
 	@Autowired
@@ -277,12 +276,14 @@ public class RestfulController {
 	 * @return
 	 */
 	@RequestMapping(value = "/getRequestInfo", headers = "Accept=application/json", method = RequestMethod.GET)
-	public @ResponseBody RequestInfoDTO getRequestInformation(@RequestParam("requestId") int requestId,
-			@RequestParam("userId") int userId, @RequestParam("token") String token)
+	public @ResponseBody RequestInfoDTO getRequestInformation(@ModelAttribute GetRequestInformationDTO getRequestInfoDTO)
 	{
 		// This would be a GET call with requestid, userid, and token as
 		// arguments.
 		// requestId, userId, token
+		int requestId = getRequestInfoDTO.getRequestId();
+		int userId = getRequestInfoDTO.getUserId();
+		String token = getRequestInfoDTO.getToken();
 		RequestInfoDTO requestInfo = new RequestInfoDTO();
 		try
 		{
@@ -333,12 +334,11 @@ public class RestfulController {
 	}
 	
 	@RequestMapping(value = "/generateAwaitResults", headers = "Accept=application/json", method = RequestMethod.GET)
-	public @ResponseBody AwaitResultDTO generateAwaitResults ( @RequestParam("responderId") int responderId,
-			@RequestParam("token") String token ) {
+	public @ResponseBody AwaitResultDTO generateAwaitResults ( @ModelAttribute AwaitResultsMapDTO awaitResultsDTO) {
 		
 		AwaitResultDTO result = new AwaitResultDTO();
-		result.setResponderId(responderId);
-		result.setToken(token);
+		result.setResponderId(awaitResultsDTO.getResponderId());
+		result.setToken(awaitResultsDTO.getToken());
 		//Service Call which should return DTO
 		
 		result = acceptorResponseService.fetchAwaitList(result);

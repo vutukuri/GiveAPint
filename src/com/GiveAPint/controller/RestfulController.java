@@ -1,6 +1,10 @@
 package com.GiveAPint.controller;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +21,6 @@ import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.GetRequestsForUserDTO;
 import com.GiveAPint.dto.LocationDTO;
 import com.GiveAPint.dto.LoginUserDTO;
-import com.GiveAPint.dto.NotificationDetailsDTO;
 import com.GiveAPint.dto.NotificationTokenDTO;
 import com.GiveAPint.dto.RequestBloodDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
@@ -50,6 +53,7 @@ import com.GiveAPint.testdata.CreateObjects;
 @Controller(value = "/GiveAPint")
 public class RestfulController {
 
+	private static final Logger LOGGER = Logger.getLogger( RestfulController.class.getName() );
 	@Autowired
 	private UserMapper userMapper;
 	@Autowired
@@ -68,7 +72,7 @@ public class RestfulController {
 	private UserLocationUpdateService locationUpdateService;
 	@Autowired
 	private RequestForBloodService requestBloodService;
-	@Autowired
+	@Resource
 	private AcceptorResponseService acceptorResponseService;
 	
 	@Autowired
@@ -247,11 +251,12 @@ public class RestfulController {
 		return acceptor;
 	}
 	
-	@RequestMapping(value = "/getRequestsForUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/getRequestsForUser", headers = "Accept=application/json", method = RequestMethod.GET)
 	public @ResponseBody UserRequestsDTO getRequestsMadeByUser(@ModelAttribute GetRequestsForUserDTO userInfo) {
 		UserRequestsDTO result = new UserRequestsDTO();
 		int userId = userInfo.getUserId();
 		String token = userInfo.getToken();
+		LOGGER.log(Level.FINER, "The parameters received to the getrequests method:" +userId + ", " +token);
 		try
 		{
 			System.out.println("Token received for the requests data: "+token);
@@ -261,6 +266,7 @@ public class RestfulController {
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			LOGGER.log(Level.FINER, e.getCause().getMessage() );
 			result.setError(e.getCause().getMessage());
 		}
 		return result;

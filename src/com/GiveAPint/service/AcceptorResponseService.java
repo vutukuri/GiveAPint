@@ -1,10 +1,13 @@
 package com.GiveAPint.service;
 
+import org.springframework.stereotype.Service;
+
 import com.GiveAPint.dto.AcceptorDTO;
 import com.GiveAPint.dto.AwaitResultDTO;
 import com.GiveAPint.dto.RequestInfoDTO;
 import com.GiveAPint.dto.UserRequestsDTO;
 
+@Service("AcceptorResponseService")
 public interface AcceptorResponseService {
 	
 	/**

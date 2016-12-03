@@ -22,15 +22,5 @@
 		where requestid=#{requestId};
 	</update>
 
-	<select id="getAllRequests" parameterType="map" resultMap="UserRequestsResultMap">
-		SELECT
-		"requestid",
-		"requeststatus",
-		extract(epoch from requesttimestamp) * 1000 as timestamp,
-		"emergencylevel",
-		"requestedbloodgroup"
-		FROM requests where userid=#{userId}
-		ORDER BY requesttimestamp DESC;
-	</select>
 
 </mapper>

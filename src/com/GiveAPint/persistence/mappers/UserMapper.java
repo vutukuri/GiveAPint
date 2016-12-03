@@ -44,7 +44,6 @@ public interface UserMapper {
 	 * Returns all the users from the database.
 	 * @return list of users.
 	 */
-	@Select("SELECT \"firstname\" as firstName, \"lastname\" as lastName, \"userid\" as userId, \"passcode\" as passcode, \"username\" as userName FROM \"loginusers\"")
 	public List<UserDBDO> getAllUsers();
 
 	/**

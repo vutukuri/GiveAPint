@@ -72,8 +72,7 @@ public class RestfulController {
 	@Autowired
 	private RequestForBloodService requestBloodService;
 	@Autowired
-	private AcceptorResponseService acceptorResponseService;
-	
+	private AcceptorResponseService acceptorResponseService;	
 	@Autowired
 	private NotificationsService notificationWrapper;
 
@@ -174,7 +173,7 @@ public class RestfulController {
 	@RequestMapping(value = "/requestBlood", headers = "Accept=application/json", method = RequestMethod.GET)
 	public @ResponseBody RequestBloodDTO requestForDonation(@ModelAttribute RequestBloodDTO request) {
 		// The argument should be "KnnQuery" or "RangeQuery"
-		// RequestBloodDTO request =
+		// RequestBoodDTO request =
 		// createSampleObjects.createRequest("RangeQuery");
 		try {
 			if (request.getQueryType().equals("RangeQuery")) {
@@ -221,6 +220,7 @@ public class RestfulController {
 			{
 				System.out.println("Acceptor response saved succesfully.");
 				acceptor = acceptorResponseService.removeFromResponders(acceptor);
+	
 				if (acceptor.getError() != null && acceptor.getError().equals("") == false) 
 				{
 					System.out.println("Error occurred while removing entry from awaitresponse table");
@@ -244,8 +244,6 @@ public class RestfulController {
 			acceptor.setError(e.getCause().getMessage());
 			return acceptor;
 		}
-		// Make a call to acceptorService.removeFromResponders, add any
-		// additional test cases.
 		acceptor.setError("");
 		return acceptor;
 	}
@@ -259,6 +257,7 @@ public class RestfulController {
 		try
 		{
 			System.out.println("Token received for the requests data: "+token);
+			LOGGER.log(Level.FINER, "About to make call to service");
 			result = acceptorResponseService.getUserRequests(userId, token);
 			System.out.println("Returned Succesfully from the service class with all the requests list:");
 		}

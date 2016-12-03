@@ -14,18 +14,5 @@
   <servlet-mapping>
     <servlet-name>giveapint</servlet-name>
     <url-pattern>/</url-pattern>
-    <url-pattern>/loginUser</url-pattern>
-    <url-pattern>/registerUser</url-pattern>
-    <url-pattern>/getAllUsers</url-pattern>
-    <url-pattern>/getAllLocations</url-pattern>
-    <url-pattern>/updateStatus</url-pattern>
-    <url-pattern>/updateLocation</url-pattern>
-    <url-pattern>/requestBlood</url-pattern>
-    <url-pattern>/respondToRequest</url-pattern>
-    <url-pattern>/getRequestsForUser</url-pattern>
-    <url-pattern>/getRequestInfo</url-pattern>
-    <url-pattern>/registerNotificationToken</url-pattern>
-    <url-pattern>/generateAwaitResults</url-pattern>
-    <url-pattern>/sendUserNames</url-pattern>
   </servlet-mapping>
 </web-app>

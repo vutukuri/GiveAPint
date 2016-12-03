@@ -18,6 +18,14 @@ public class QueryResultDBDO {
 	{
 		
 	}
+	
+	public QueryResultDBDO(int resultantUserId, String bloodgroup, double distance, long times)
+	{
+		this.resultantUserId = resultantUserId;
+		this.bloodGroup = bloodgroup;
+		this.distance = distance;
+		this.times = times;
+	}
 
 	public int getResultantUserId()
 	{

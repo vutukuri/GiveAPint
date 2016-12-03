@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.GiveAPint.persistence.mappers.UserMapper">
+
+	
+	<resultMap type="com.GiveAPint.persistence.dbdo.UserDBDO" id="getAllUsersMap">
+	<result column="firstname" property="firstName"/>
+	<result column="lastname" property="lastName"/>
+	<result column="userid" property="userId"/>
+	<result column="passcode" property="passcode"/>
+	<result column="username" property="userName"/>
+	</resultMap>
+	
+	<select id="getAllUsers" parameterType="map" resultMap="getAllUsersMap">
+	SELECT 
+	firstname as firstName,
+	lastname as lastName,
+	userid as userId,
+	passcode as passcode,
+	username as userName
+	FROM loginusers;	
+	</select>
+</mapper>

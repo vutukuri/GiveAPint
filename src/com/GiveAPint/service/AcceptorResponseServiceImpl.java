@@ -36,6 +36,8 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 	private AcceptorMapper acceptorMapper;
 	@Autowired
 	private RequestInfoMapper requestInfoMapper;
+	@Autowired
+	private NotificationsService notificationService;
 
 	@Override
 	public AcceptorDTO saveUserResponse(AcceptorDTO acceptor) {
@@ -52,6 +54,9 @@ public class AcceptorResponseServiceImpl implements AcceptorResponseService {
 			{
 				int insertStatus = acceptorMapper.insertAcceptor(acceptor);
 				System.out.println("Inserting donor returned with status:" +insertStatus);
+				//Need to write logic for sending the notification to the person who requested this request.
+				System.out.println("About to trigger notification class to send notifications to requester");
+				notificationService.sendNotificationAfterDonorsFound(acceptor.getRequestId(), acceptor.getUserId());
 			}
 			else 
 			{

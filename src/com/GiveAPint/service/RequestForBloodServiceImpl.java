@@ -109,8 +109,17 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 			request.setError(e.getCause().getMessage());
 			return request;
 		}
-		//notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
-				//request.getUserId());
+		try
+		{
+		notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
+				request.getUserId());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("Exception occurred while sending notification to the users");
+			request.setError("Error sending the notifications. Please submit the request again!");
+		}
 		request.setError("");
 		return request;
 	}
@@ -162,6 +171,18 @@ public class RequestForBloodServiceImpl implements RequestForBloodService {
 			e.printStackTrace();
 			request.setError(e.getCause().getMessage());
 			return request;
+		}
+		
+		try
+		{
+		notificationsService.notificationWrapperForRequest(request.getQueryResult(), request.getBloodGroup(),
+				request.getUserId());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("Exception occurred while sending notification to the users");
+			request.setError("Error sending the notifications. Please submit the request again!");
 		}
 		request.setError("");
 		return request;

@@ -50,12 +50,13 @@
 		when you use MapperFactoryBean -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+  		<property name="mapperLocations" value="classpath*:com.GiveAPint.persistence.mappers.*.xml"/>
 		<!-- Set up this configuration file if you need mappers.xml files, other 
 			than the mapper interfaces that you provide -->
 		<!--  <property name="configLocation" value="resources/mybatis-config.xml" /> -->
 	</bean>
 	<!-- scan for mappers and let them be autowired -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.GiveAPint.persistence"/>
+		<property name="basePackage" value="com.GiveAPint.persistence.mappers"/>
 	</bean>
 </beans>

@@ -30,6 +30,10 @@ public interface RequestMapper {
 	
 	public List<QueryResultDBDO> rangeQuery(RequestBloodDTO request);
 	
+	@Select("SELECT (\"userid\") from requests WHERE \"requestid\" = #{requestId}")
+	public int getRequesterId(@Param("requestId") int requestId);
+	
+	
 	
 	/**
 	 * Returns list of('username', 'userid') for the give list of userid's in the arguments

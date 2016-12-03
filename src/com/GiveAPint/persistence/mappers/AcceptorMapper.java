@@ -50,6 +50,8 @@ public interface AcceptorMapper {
 	 * @param userId
 	 * @return
 	 */
+	
+	@Select("SELECT \"requestid\" as requestId, \"requeststatus\" as status, (extract(epoch from \"requesttimestamp\") * 1000) as timestamp, \"emergencylevel\" as emergencyLevel, \"requestedbloodgroup\" as requestedBloodType FROM requests where \"userid\" =#{userId} ORDER BY \"requesttimestamp\" DESC")
 	public List<UserRequestsDBDO> getAllRequests(@Param("userId") int userId);
 
 }

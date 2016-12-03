@@ -34,9 +34,11 @@ public class NotificationsService {
 	private RequestMapper requestMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private NotificationMapper notificationsMapper;
 	
 	public List<NotificationDetailsDTO> notificationWrapperForRequest(List<QueryResultDBDO> listOfUsers, String bloodType,
-			int requesterId) 
+			int requesterId)
 	{
 		System.out.println("Came inside this notification wrapper.");
 		List<NotificationDetailsDTO> usernameList = new ArrayList<>();
@@ -81,15 +83,40 @@ public class NotificationsService {
 		return usernameList;
 	}
 	
+	/**
+	 * Sends the notifications to the requester after some one accepted the request.
+	 */
+	public void sendNotificationAfterDonorsFound(int requestId, int responderId)
+	{
+		System.out.println("Came inside the corresponding notification method.");
+		try
+		{	
+		int requesterId = requestMapper.getRequesterId(requestId);
+		System.out.println("RequesterId fetched using the requestiD is:" + requesterId);
+		String userName = userMapper.getUserName(requesterId);
+		System.out.println("User name fetched using the requesterId is:" +userName);
+		String regId =  notificationsMapper.getNotificationToken(userName);
+		System.out.println("RegId fetched using the username is:" +regId);
+		String responderName = userMapper.getFirstName(responderId);
+		System.out.println("responderName fetched using the responderId is:"+responderName);
+		String message = responderName + " accepted your request, you can now connect to him.";
+		System.out.println("About to trigger the notifications main method");
+		sendAndroidNotification(message, regId);
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.out.println("Exception occurred while sending the notiifcation after  some user responding.");
+		}
+	}
+	
 	public void sendAndroidNotification(String messageToUser, String regId) throws IOException {
 		System.out.println("Inside the notification service");
 		HttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost("https://fcm.googleapis.com/fcm/send");
 		post.setHeader("Content-type", "application/json");
-		post.setHeader("Authorization", "key=AIzaSyCnmKZ2pq6YBnX5bZtAaX3fyX5vQaQmFf8");
-		
-		
-		                                     
+		post.setHeader("Authorization", "key=AIzaSyCnmKZ2pq6YBnX5bZtAaX3fyX5vQaQmFf8");		                                     
 		System.out.println("Initial parameters are set");
 		JSONObject message = new JSONObject();
 		try {
